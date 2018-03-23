@@ -9,7 +9,7 @@
  Drop database moviedb;
 # Build Tables
 create database moviedb;
-CREATE TABLE Complex
+CREATE TABLE complex
 (
 	CName			VARCHAR(30)	NOT NULL,
 	PhoneNumber		VARCHAR(10)	NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE Complex
 	PRIMARY KEY(CName)
 );
 
-CREATE TABLE Theatre
+CREATE TABLE theatre
 (
 	TheatreNum  	INTEGER NOT NULL,
 	Complex 		VARCHAR(30) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Theatre
 	FOREIGN KEY(Complex) REFERENCES Complex(CName)
 );
 
-CREATE TABLE Supplier
+CREATE TABLE supplier
 (
 	Name 			VARCHAR(20) NOT NULL,
 	Street 			VARCHAR(20),
@@ -41,7 +41,7 @@ CREATE TABLE Supplier
 	PRIMARY KEY(Name)
 );
 
-CREATE TABLE Movie
+CREATE TABLE movie
 (
 	Title			VARCHAR(35)	NOT NULL,
 	RunTime			INTEGER 	NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE Movie
 	FOREIGN KEY(Supplier) REFERENCES Supplier(Name)
 );
 
-CREATE TABLE Actors
+CREATE TABLE actors
 (
 	Title			VARCHAR(35) NOT NULL,
 	Fname			VARCHAR(20) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE Actors
 	FOREIGN KEY(Title) REFERENCES Movie(Title)
 );
 
-CREATE TABLE Directors
+CREATE TABLE directors
 (
 	Title			VARCHAR(35) NOT NULL,
 	Fname			VARCHAR(20) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE Directors
 	FOREIGN KEY(Title) REFERENCES Movie(Title)
 );
 
-CREATE TABLE Showing
+CREATE TABLE showing
 (
 	Complex 		VARCHAR(30) NOT NULL,
 	Theatre 		INTEGER NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE Showing
 	FOREIGN KEY(Theatre) REFERENCES Theatre(TheatreNum)
 );
 
-CREATE TABLE Runs
+CREATE TABLE runs
 (
 	Movie 			VARCHAR(35) NOT NULL,
 	Complex 		VARCHAR(30) NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE Runs
 	FOREIGN KEY(Complex) REFERENCES Complex(CName)
 );
 
-CREATE TABLE Customer
+CREATE TABLE customer
 (
 	AccountNumber	INTEGER NOT NULL,
 	Password		VARCHAR(20) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE Customer
 	PRIMARY KEY(AccountNumber)
 );
 
-CREATE TABLE Review
+CREATE TABLE review
 (
 	AccountNumber	INTEGER NOT NULL,
 	Movie 		  	VARCHAR(35) NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE Review
 	FOREIGN KEY(Movie) REFERENCES Movie(Title)
 );
 
-CREATE TABLE Reservation
+CREATE TABLE reservation
 (
 	AccountNumber	INTEGER NOT NULL,
 	Complex 		VARCHAR(30) NOT NULL,
@@ -135,17 +135,17 @@ CREATE TABLE Reservation
 
 # Insert Data
 
-Insert into Complex values
+Insert into complex values
 ("Odeplex Cineon","6135551829","14 Doggo Drive","Kingston","K3Z5L4"),
 ("Mandlark Cinemas","6135553145","72 Birb Boulevard","Kingston","K8M5N8"),
 ("The Reening Scroom","6135551234","45 Snek Street","Kingston","T6U8O8");
 
-Insert into Supplier values
+Insert into supplier values
 ("Movies R Us",NULL,NULL,NULL,NULL,NULL,NULL),
 ("Whole Lotta Movies",NULL,NULL,NULL,NULL,NULL,NULL),
 ("Okay Movies","18 Hollywood Ave","Hollywood", "H1HK26", "George","Brown","9051236565");
 
-Insert into Movie values
+Insert into movie values
 ("Tammy and the T-Rex",88,
 "A teen (Denise Richards) learns that a scientist (Terry Kiser) implanted her dead boyfriend's brain into an animatronic dinosaur.",
 "Movies R Us","Greenline Productions","R"),
@@ -158,7 +158,7 @@ Insert into Movie values
 "King Arthur and his knights embark on a low-budget search for the Grail, encountering many, very silly obstacles.",
 "Movies R Us","Python (Monty) Pictures","PG");
 
-Insert into Runs values
+Insert into runs values
 ("Tammy and the T-Rex", "Odeplex Cineon", 1998-11-18, 1999-01-28),
 ("Tammy and the T-Rex", "Mandlark Cinemas", 1998-11-18, 1999-02-09),
 ("Tammy and the T-Rex", "The Reening Scroom", 1998-11-18, 1999-02-12),
@@ -172,7 +172,7 @@ Insert into Runs values
 ("Monty Python and the Holy Grail", "The Reening Scroom", 1975-06-10, 1975-09-15);
 
 
-Insert into Theatre values
+Insert into theatre values
 (1, "Odeplex Cineon", "S", 30),
 (2, "Odeplex Cineon", "M", 40),
 (3, "Odeplex Cineon", "L", 50),
@@ -184,7 +184,7 @@ Insert into Theatre values
 (3, "The Reening Scroom", "L", 50);
 
 
-Insert into Showing values
+Insert into showing values
 ("Odeplex Cineon", 1, "5:00pm", 1998-11-18, 28, "Tammy and the T-Rex"),
 ("Mandlark Cinemas", 1, "5:30pm", 1998-11-18, 28, "Tammy and the T-Rex"),
 ("The Reening Scroom", 1, "6:00pm", 1998-11-18, 28, "Tammy and the T-Rex"),
@@ -197,7 +197,7 @@ Insert into Showing values
 ("Mandlark Cinemas", 3, "3:30pm", 2010-08-18, 50, "Shrek Forever After"),
 ("The Reening Scroom", 3, "4:00pm", 2010-08-18, 50, "Shrek Forever After");
 
-Insert into Actors values
+Insert into actors values
 ("Tammy and the T-Rex","Denise","Richards"),
 ("Tammy and the T-Rex","Theo", "Forsett"),
 ("Tammy and the T-Rex","Paul","Walker"),
@@ -214,7 +214,7 @@ Insert into Actors values
 ("Shrek Forever After","Cameron","Diaz"),
 ("Shrek Forever After","Antonio","Banderas");
 
-Insert into Directors values
+Insert into directors values
 ("Tammy and the T-Rex","Stewart","Raffill"),
 
 ("Monty Python and the Holy Grail","Terry", "Gilliam"),
@@ -223,12 +223,12 @@ Insert into Directors values
 ("Shrek Forever After","Mike","Mitchell");
 
 
-Insert into Customer values
+Insert into customer values
 (10183354, "123abc", "Ashley", "Drouillard", "1234567890", "ashley@email.com", "1234 5677 8900 1234", 2020-08-18,true);
 
-Insert into Review values
+Insert into review values
 (10183354, "Shrek Forever After", 8);
 
-Insert into Reservation values
+Insert into reservation values
 (10183354, "Mandlark Cinemas", 3, "3:30pm", 2010-08-18, 2);
 
