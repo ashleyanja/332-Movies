@@ -26,7 +26,7 @@ CREATE TABLE theatre
 	ScreenSize  	CHAR(1) NOT NULL,
 	MaxSeats    	INTEGER NOT NULL,
 	PRIMARY KEY(TheatreNum,Complex),
-	FOREIGN KEY(Complex) REFERENCES Complex(CName)
+	FOREIGN KEY(Complex) REFERENCES complex(CName)
 );
 
 CREATE TABLE supplier
@@ -50,7 +50,7 @@ CREATE TABLE movie
 	Production		VARCHAR(20) NOT NULL,
 	Rating			VARCHAR(5) NOT NULL,
 	PRIMARY KEY(Title),
-	FOREIGN KEY(Supplier) REFERENCES Supplier(Name)
+	FOREIGN KEY(Supplier) REFERENCES supplier(Name)
 );
 
 CREATE TABLE actors
@@ -59,7 +59,7 @@ CREATE TABLE actors
 	Fname			VARCHAR(20) NOT NULL,
 	Lname			VARCHAR(20) NOT NULL,
 	PRIMARY KEY(Title,Fname,Lname),
-	FOREIGN KEY(Title) REFERENCES Movie(Title)
+	FOREIGN KEY(Title) REFERENCES movie(Title)
 );
 
 CREATE TABLE directors
@@ -68,7 +68,7 @@ CREATE TABLE directors
 	Fname			VARCHAR(20) NOT NULL,
 	Lname			VARCHAR(20) NOT NULL,
 	PRIMARY KEY(Title,Fname,Lname),
-	FOREIGN KEY(Title) REFERENCES Movie(Title)
+	FOREIGN KEY(Title) REFERENCES movie(Title)
 );
 
 CREATE TABLE showing
@@ -80,9 +80,9 @@ CREATE TABLE showing
 	NumSeats		INTEGER NOT NULL,
 	Movie  			VARCHAR(35) NOT NULL,
 	PRIMARY KEY(Complex,Theatre,StartTime,Day),
-	FOREIGN KEY(Movie) REFERENCES Movie(Title),
-	FOREIGN KEY(Complex) REFERENCES Complex(CName),
-	FOREIGN KEY(Theatre) REFERENCES Theatre(TheatreNum)
+	FOREIGN KEY(Movie) REFERENCES movie(Title),
+	FOREIGN KEY(Complex) REFERENCES complex(CName),
+	FOREIGN KEY(Theatre) REFERENCES theatre(TheatreNum)
 );
 
 CREATE TABLE runs
@@ -92,8 +92,8 @@ CREATE TABLE runs
 	StartDate 		date NOT NULL,
 	EndDate 		date NOT NULL,
 	PRIMARY KEY(Movie,Complex),
-	FOREIGN KEY(Movie) REFERENCES Movie(Title),
-	FOREIGN KEY(Complex) REFERENCES Complex(CName)
+	FOREIGN KEY(Movie) REFERENCES movie(Title),
+	FOREIGN KEY(Complex) REFERENCES complex(CName)
 );
 
 CREATE TABLE customer
@@ -116,8 +116,8 @@ CREATE TABLE review
 	Movie 		  	VARCHAR(35) NOT NULL,
 	Review		  	INTEGER NOT NULL,
 	PRIMARY KEY(AccountNumber,Movie),
-	FOREIGN KEy(AccountNumber) REFERENCES Customer(AccountNumber),
-	FOREIGN KEY(Movie) REFERENCES Movie(Title)
+	FOREIGN KEy(AccountNumber) REFERENCES customer(AccountNumber),
+	FOREIGN KEY(Movie) REFERENCES movie(Title)
 );
 
 CREATE TABLE reservation
@@ -129,8 +129,8 @@ CREATE TABLE reservation
 	Day				date NOT NULL,
 	NumTickets		INTEGER	NOT NULL,
 	PRIMARY KEY(AccountNumber, Complex, Theatre, StartTime, Day),
-	FOREIGN KEY(AccountNumber) REFERENCES Customer(AccountNumber),
-	FOREIGN KEY(Complex,Theatre,StartTime,Day) REFERENCES Showing(Complex,Theatre,StartTime,Day)
+	FOREIGN KEY(AccountNumber) REFERENCES customer(AccountNumber),
+	FOREIGN KEY(Complex,Theatre,StartTime,Day) REFERENCES showing(Complex,Theatre,StartTime,Day)
 );
 
 # Insert Data
