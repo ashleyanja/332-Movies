@@ -237,20 +237,25 @@ $result = $db->query($sql);
         echo "0 results";
     }
 
-  echo "
-    <form name = 'showings' action='movieShowings.php' method='POST' enctype='multipart/form-data'>
-    <br>
-    <h4> Find showings near you!</h4>";
-  $sql = "SELECT cname, city from complex";
-  $result = $db->query($sql);
-  echo "<select name='theatreComplex' required='required'>";
+/*FIND SHOWINGS--------------------------*/
+    echo 
+      "<br>
+       <h4> Find showings near you!</h4>";
+    $sql = "SELECT cname, city from complex";
+    $result = $db->query($sql);
+    echo 
+      "<form action='showingsLogin.php' method='get'>
+      <select name='TheatreComplex'>";
+    $ComplexName = "cname";
+    $City = "city";
     while($row = $result->fetch_assoc()) {
-      echo "<option value = '" . $row["cname"] . ", " . $row["city"] . "''>" . $row["cname"] . ", " . $row["city"] . "</option>";
+      echo '<option value="'.$row[$ComplexName].'">' . $row[$ComplexName] . '</option>'; 
     }
     echo "</select>";
-    echo "<form action='http://52.60.89.137/14aad4/database/A3redirect.html'>
-      <input type='submit' value='GO!' />
-  </form>";
+    echo 
+      "<input type='submit' value='GO!'>
+      </form>";
+/*end find showings----------------------*/
   $db->close();
 ?>
 
