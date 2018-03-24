@@ -54,46 +54,56 @@ function DBLogin()
   if ($db->connect_error) {die("Connection failed: " . $db->connect_error);}
   return $db;
 }
-// page state variables
-$admin = false;
-// try to login
-//$username = 10183354;
-$username = $_POST["accountNumber"];
-$password = $_POST["password"];
-$sql = "SELECT Fname,Password,isAdmin from customer where accountNumber =".$username;
-$db = DBLogin();
 
-  $result = $db->query($sql);
-  if ($result->num_rows > 0) 
-  {
-    // output data of each row
-    $row = $result->fetch_assoc();
-    $name = $row['Fname'];
-    $pw = $row['Password'];
+// can access without having to log back in 
+if(!(array_key_exists('login',$_SESSION) && $_SESSION['login']))
+{
+  // first log in
+  // page state variables
+  $admin = false;
+  // try to login
+  //$username = 10183354;
+  $username = $_POST["accountNumber"];
+  $password = $_POST["password"];
+  $sql = "SELECT Fname,Password,isAdmin from customer where accountNumber =".$username;
+  $db = DBLogin();
+
+    $result = $db->query($sql);
+    if ($result->num_rows > 0) 
+    {
+      // output data of each row
+      $row = $result->fetch_assoc();
+      $name = $row['Fname'];
+      $pw = $row['Password'];
+      
+      if($password == $pw)
+      {
+        // login
+        $admin = $row['isAdmin'];
+      }
+      else
+      {
+         header('Location: error.php#login');
+      }
+    }
+     else 
+    {
     
-    if($password == $pw)
-    {
-      // login
-      $admin = $row['isAdmin'];
-    }
-    else
-    {
-       header('Location: error.php#login');
-    }
+          header('Location: error.php#login');
+    
   }
-   else 
-  {
-  
-        header('Location: error.php#login');
-  
+  $db -> close();
+  // Save values to the session
+  $_SESSION["fname"] = $name; 
+  $_SESSION['admin'] = $admin; // bool T if user is an admin
+  $_SESSION['accountNumber'] = $username;
+  $_SESSION['login'] = true;
 }
-$db -> close();
-// Save values to the session
-$_SESSION["fname"] = $name; 
-$_SESSION['admin'] = $admin; // bool T if user is an admin
-$_SESSION['accountNumber'] = $username;
+else
+{
+  $admin = $_SESSION['admin'];
+}
 
- 
 ?>
 
   <!--==========================
@@ -121,7 +131,7 @@ $_SESSION['accountNumber'] = $username;
           <?php 
             if($admin)
             {
-              echo  "<li> <a href='#login'>Admin</a></li>";
+              echo  "<li> <a href='admin.php'>Admin</a></li>";
             }
 
             ?>

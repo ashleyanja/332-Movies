@@ -62,8 +62,8 @@
 		exit;
   	} 
   	// good to make the account
-  	$sql = "INSERT INTO customer (AccountNumber,Password,Fname,Lname,Email) 
-  			VALUES ($accountNumber,'$password','$Fname','$Lname','$email')";
+  	$sql = "INSERT INTO customer (AccountNumber,Password,Fname,Lname,Email,isAdmin) 
+  			VALUES ($accountNumber,'$password','$Fname','$Lname','$email',0)";
 
 
   	if ($db->query($sql) === TRUE) 

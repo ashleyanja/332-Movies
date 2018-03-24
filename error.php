@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +38,11 @@
 </head>
 
 <body>
+<?php 
+// user is logged out
+ session_unset();
+ session_destroy();
+ ?>
 <h3> Oops looks like your username or password is wrong! :(</h3>
 <a href="index.php">Click here to return back to the main page</a>
 

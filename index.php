@@ -317,7 +317,7 @@ $result = $db->query($sql);
           <form action="createAccount.php" method="post">
             <div class="form-row">
               <div class="form-group col-md-6">
-                <input type="number" name="accountNumber" class="form-control" id="accountNumber" placeholder="accountNumber" required />
+                <input type="number" name="accountNumber" class="form-control" id="accountNumber" placeholder="Account Number(Max of 9 digits)" min = "0" max="999999999" required />
                 <div class="validation"></div>
               </div>
               <div class="form-group col-md-6">
