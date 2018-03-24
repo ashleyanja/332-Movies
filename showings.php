@@ -1,4 +1,3 @@
-<!-- V UGLY AND ROUGH RN-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
