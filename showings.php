@@ -67,7 +67,8 @@ if (isset($_GET["TheatreComplex"])) {
 } 
 
 echo "<fieldset>";
-echo "<h3>Showings at $theatre</h3>";
+echo "<h3>Showings at $theatre</h3>
+      <a href='http://localhost/#login';>Login to make a reservation</a>";
 
 /* iterate through and select names and emails */
 $sql = "SELECT theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
