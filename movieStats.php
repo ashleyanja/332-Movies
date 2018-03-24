@@ -1,7 +1,6 @@
 <?php
 //
 session_start();
-include 'dbLogin.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +29,7 @@ include 'dbLogin.php';
   <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
   <link href= "css/movie.css" rel="stylesheet">
    <link href= "css/admin.css" rel="stylesheet">
+  <link href= "css/stats.css" rel="stylesheet">
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -90,33 +90,29 @@ include 'dbLogin.php';
   ============================-->
   <br><br><br><br><br>
   
-	<H1>Manage Movies</H1>
-<?php
-	/* iterate through and select names and emails */
-$db = DBLogin();
-$sql = "SELECT title, runtime, plot, production, rating from movie";
-$result = $db->query($sql);
-  if ($result->num_rows > 0) {
+	<H1>Analytics</H1>
+	<?php
+	include "dbLogin.php";
+	$db = DBLogin();
+	// want to select all user and display them
+	$sql = "SELECT Movie, SUM((MaxSeats - NumSeats)) AS TicketsSold FROM showing JOIN theatre ON showing.Complex = theatre.Complex AND showing.Theatre = theatre.TheatreNum GROUP BY movie ORDER BY TicketsSold DESC";
+	$result = $db->query($sql);
+	echo "<h3>Most Popular Movies</h3>";
+  	if ($result->num_rows > 0) {
     // output data of each row
     echo "<table class='t1'>
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Runtime</th>
-                <th>Plot</th>
-                <th>Production</th>
-                <th>Rating</th>
+            	<th>Movie</th>
+                <th>Tickets Sold</th>
             </tr>
             </thead>
           ";
     while($row = $result->fetch_assoc()) {
       echo "<tbody>";
       echo "<tr>";
-      echo "<td>" . $row["title"] . "</td>";
-      echo "<td>" . $row["runtime"] . "</td>";
-      echo "<td>" . $row["plot"] . "</td>";
-      echo "<td>" . $row["production"] . "</td>";
-      echo "<td>" . $row["rating"] . "</td>";
+      echo "<td>" . $row["Movie"] . "</td>";
+      echo "<td>" . $row["TicketsSold"] . "</td>";
       echo "</tr>";
       echo "</tbody>";
       }
@@ -124,34 +120,40 @@ $result = $db->query($sql);
     } else {
         echo "0 results";
     }
-  $db->close();
-?>
 
-<h3>Add a new Movie</h3>
-<form action="addMovie.php"  method="post">
-    <input type="text" name="title" id="title" placeholder="Title">
-    <input type="number" name="year" id="year" min = "1900" max ="2018" placeholder="Year" required>
-    <input type="number" name="runtime" id="runtime" min="0" max ="" placeholder="Runtime" required >
-    <br>
+    //=========================================================//
+    // populat complex
+    $sql = "SELECT showing.Complex, SUM((MaxSeats - NumSeats)) AS TicketsSold FROM showing JOIN theatre ON showing.Complex = theatre.Complex AND showing.Theatre = theatre.TheatreNum GROUP BY showing.Complex ORDER BY TicketsSold DESC";
+    $result = $db->query($sql);
+	echo "<h3>Most Popular Complexs</h3>";
+  	if ($result->num_rows > 0) {
+    // output data of each row
+    echo "<table class='t1'>
+            <thead>
+            <tr>
+            	<th>Complex</th>
+                <th>Tickets Sold</th>
+            </tr>
+            </thead>
+          ";
+    while($row = $result->fetch_assoc()) {
+      echo "<tbody>";
+      echo "<tr>";
+      echo "<td>" . $row["Complex"] . "</td>";
+      echo "<td>" . $row["TicketsSold"] . "</td>";
+      echo "</tr>";
+      echo "</tbody>";
+      }
+    echo "</table>";
+    } else {
+        echo "0 results";
+    }
 
-    <input type="text" name="production" id="production" placeholder="Production Company" required>
-    <input type="text" name="distributor" id="distributor" placeholder="Supplier" required>
-    <select name="rating" id = "rating" required>
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="14A">14A</option>
-            <option value="18A">18A</option>
-            <option value="18A">R</option>
-    </select>
-    <br>
 
-    <textarea name="actors" id="actors" rows="7" cols="22" placeholder="Actors(Seperate names with ,)" required></textarea>
-    <textarea name="directors" id="directors" rows="7" cols="22" placeholder="Directors(Seperate names with ,)" required></textarea>
-    <textarea name="plot" id ="plot" rows="7" cols="22" placeholder="Plot(max 1000 characters)" required></textarea>
-    <br>
-    <input type="submit" value="Add Movie">
-  
-</form>
+
+    $db->close();
+	?>
+	
 	
   <!--==========================
     Footer
