@@ -111,7 +111,7 @@ $numRows = $result->num_rows;
   } else {
     echo "0 results";
   }
-  echo "<button onclick=\"document.getElementById('modal-wrapper').style.display='block'\"style=\"width:200px; text-align:center;\">
+  echo "<button onclick=\"document.getElementById('modal-wrapper').style.display='block'\"style=\"text-align:center;\">
 Purchase Tickets</button>";
 ?>
 <!--END PHP==============-->
@@ -121,7 +121,7 @@ Purchase Tickets</button>";
 
 <div id="modal-wrapper" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php">
+  <form class="modal-content animate" method="post" action="/purchase.php">
         
     <div class="imgcontainer">
       <span onclick="document.getElementById('modal-wrapper').style.display='none'" class="close" title="Close PopUp">&times;</span>
@@ -132,15 +132,21 @@ Purchase Tickets</button>";
     <div class="container">
       <select name="selectShowings">
         <?php
-          $sql = "SELECT theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
+          $sql = "SELECT complex, theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
           $result = $db->query($sql);
           $Movie = "movie";
           $Day = "day";
           $Time = "starttime";
           $TheatreNum = "theatre";
-          echo "<option value='' disabled selected>Select a Showing</option>";
+          $complex = "complex";
+          $NumSeats = "numseats";
+          echo "<option value='' disabled selected>Select a Showing</option>";  
+          $rowString = "";       
           while($row = $result->fetch_assoc()) {
-            echo '<option value="'.$row[$Movie].$row[$Day].$row[$Time].$row[$TheatreNum].'">'.$row[$Movie].' on '.$row[$Day].' at '.$row[$Time].'</option>'; 
+            $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
+            echo "<option value='$rowString'
+                  '>".$row[$Movie].' on '.$row[$Day].' at '.$row[$Time]."
+                </option>";
           }
           $db->close();
         ?>
