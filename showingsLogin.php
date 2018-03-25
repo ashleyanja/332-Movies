@@ -71,7 +71,7 @@ echo "<header class='section-header'>
         <h3 class='section-title'>Showings at $theatre</h3>
       </header>";
 
-/* iterate through and select names and emails */
+/* iterate through and select showings from complex */
 $sql = "SELECT theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
 $result = $db->query($sql);
 if (!$result) {
