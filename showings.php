@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,11 +48,6 @@
 <section id="movie"  class="section-bg" >
   <div class="container">
 
-    <header class="section-header">
-      <br><br>
-      <h3 class="section-title">Showings</h3>
-    </header>
-
 <!-- PHP ================-->
 <?php
 
@@ -67,8 +66,10 @@ if (isset($_GET["TheatreComplex"])) {
 } 
 
 echo "<fieldset>";
-echo "<h3>Showings at $theatre</h3>
-      <a href='http://localhost/#login';>Login to make a reservation</a>";
+echo "<header class='section-header'>
+      <br><br>
+      <h3 class='section-title'>Showings for $theatre
+      </header>";
 
 /* iterate through and select names and emails */
 $sql = "SELECT theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
@@ -111,6 +112,8 @@ $numRows = $result->num_rows;
 ?>
 <!--END PHP==============-->
 <!--END SHOWINGS =========-->
+
+<p style='text-align:center'><a href='http://localhost/#login'>Login to make a reservation</a></p>
 
 </div>
 </section>
