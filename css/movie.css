@@ -9,7 +9,6 @@
   }
   .t1 thead th {
     background: #00e673;
-    text-transform: lowercase;
     text-align: left;
     font-size: 15px;
     color: #fff;
@@ -36,6 +35,18 @@
   .t1 tr *:nth-child(1){
     font-weight: bold;
   }
+
+/* cellpadding */
+th, td { padding: 2.5px; }
+
+/* cellspacing */
+table { border-collapse: separate; border-spacing: 1px; } /* cellspacing="5" */
+
+/* valign */
+th, td { vertical-align: top; }
+
+/* align (center) */
+table { margin: 0 auto; }
 
 legend {
   margin: 4px 2px;
