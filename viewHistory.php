@@ -1,7 +1,8 @@
 <?php
+//
 session_start();
+include 'dbLogin.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,7 @@ session_start();
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
   <link href= "css/movie.css" rel="stylesheet">
-  <link href= "css/admin.css" rel="stylesheet">
+   <link href= "css/admin.css" rel="stylesheet">
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -88,15 +89,48 @@ session_start();
     Intro Section
   ============================-->
   <br><br><br><br><br>
-  <?php
-		echo "<H1>Welcome to the Administrator Control Panel, {$_SESSION['fname']}</H1>";
-	?>
-	<Ul>
-  <li><form action='manageMembers.php' method = 'post'><input type='submit' value = 'Manage Members'></input></form></li>
-  <li><button>Manage Theatres</button></li>
-  <li><form action='manageMovies.php' method = 'post'><input type='submit' value = 'Manage Movies'></input></form></li>
-  <li><form action='movieStats.php' method = 'post'><input type='submit' value = 'Analytics'></input></form></li>
-	</Ul>
+  
+<?php
+$id = $_POST['member'];
+	
+  echo "<h3>History for User {$id}</h3>";
+$db = DBLogin();
+$sql = "SELECT movie, reservation.day, reservation.starttime, reservation.theatre, reservation.complex, reservation.NumTickets from showing join movie on showing.movie = movie.title join reservation on showing.Complex = reservation.Complex and showing.Theatre = reservation.Theatre and showing.StartTime = reservation.StartTime and showing.Day = reservation.Day WHERE AccountNumber = '$id'";
+$result = $db->query($sql);
+  if ($result->num_rows > 0) {
+    // output data of each row
+    echo "<table class='t1'>
+            <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Theatre</th>
+                <th>Complex</th>
+                <th>NumTickets</th>
+            </tr>
+            </thead>
+          ";
+    while($row = $result->fetch_assoc()) {
+      echo "<tbody>";
+      echo "<tr>";
+      echo "<td>" . $row["movie"] . "</td>";
+      echo "<td>" . $row["day"] . "</td>";
+      echo "<td>" . $row["starttime"] . "</td>";
+      echo "<td>" . $row["theatre"] . "</td>";
+      echo "<td>" . $row["complex"] . "</td>";
+      echo "<td>" . $row["NumTickets"] . "</td>";
+      echo "</tr>";
+      echo "</tbody>";
+      }
+    echo "</table>";
+    } else {
+        echo "0 results";
+    }
+  $db->close();
+?>
+
+
 	
   <!--==========================
     Footer

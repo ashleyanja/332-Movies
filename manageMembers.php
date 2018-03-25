@@ -127,9 +127,10 @@ session_start();
       	echo "<td>" . $row["PhoneNumber"] . "</td>";
       }
       // view form
-      echo "<td><button>View</button></td>";
-
-
+      echo "<td><form action='viewHistory.php' method = 'post'>
+            <input type = 'hidden' name = 'member' value = '{$row["AccountNumber"]}'/>
+            <input type='submit' value = 'View History'></input>
+            </form></td>";
       // remove form
       echo "<td><form action='deleteMember.php' method = 'post'>
       			<input type = 'hidden' name = 'member' value = '{$row["AccountNumber"]}'/>
@@ -143,7 +144,7 @@ session_start();
         echo "0 results";
     }
 
-
+    $db -> close();
 	?>
 	
 	
