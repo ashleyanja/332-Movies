@@ -237,14 +237,22 @@ $result = $db->query($sql);
         echo "0 results";
     }
 
+?>
+
+<table cellpadding="50">
+<tr> 
+<th><h4 style="text-align:center;">Find a Showing: </h4></th> 
+<th><h4 style="text-align:center;">Leave a Review: </h4></th>
+</tr>
+<tr>
+
+<?php
+
 /*FIND SHOWINGS--------------------------*/
-    echo 
-      "<br>
-       <h4> Find showings near you!</h4>";
     $sql = "SELECT cname, city from complex";
     $result = $db->query($sql);
     echo 
-      "<form action='showingsLogin.php' method='get'>
+      "<td><form action='showings.php' method='get'>
       <select name='TheatreComplex'>";
     $ComplexName = "cname";
     $City = "city";
@@ -254,8 +262,26 @@ $result = $db->query($sql);
     echo "</select>";
     echo 
       "<input type='submit' value='GO!'>
-      </form>";
-/*end find showings----------------------*/
+      </form></td>";
+/*FIND SHOWINGS----------------------*/
+
+/*LEAVE REVIEW---------------------------*/
+  $sql2 = "SELECT title from movie";
+  $result = $db->query($sql2);
+  echo 
+      "<td><form action='' method='get'>
+      <select name='MovieReview'>";
+    $Movie = "title";
+    while($row = $result->fetch_assoc()) {
+      echo '<option value="'.$row[$Movie].'">' . $row[$Movie] . '</option>'; 
+    }
+    echo "</select>";
+    echo 
+      "<input type='submit' value='GO!'>
+      </form></td>
+      </tr>";
+/*LEAVE REVIEW----------------------------*/
+
   $db->close();
 ?>
 
