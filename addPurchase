@@ -1,5 +1,4 @@
 <?php
-// Start the session
 session_start();
 ?>
 <!DOCTYPE html>
@@ -41,6 +40,20 @@ session_start();
 </head>
 
 <body>
+
+<!--==========================
+  Intro Section
+============================-->
+
+<section id="ThankYouReview"  class="section-bg" >
+  <div class="container">
+
+    <header class="section-header">
+      <br><br>
+      <h3 class="section-title">Thank you for your Purchase!</h3>
+    </header>
+    <p style='text-align:center'><a href='/login.php'>Return Home</a></p>
+ </body>
 <?php
 
 $ammount = (int)$_POST["quantity"];
