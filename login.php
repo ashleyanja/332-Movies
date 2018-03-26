@@ -214,7 +214,7 @@ else
     $sql = "SELECT cname, city from complex";
     $result = $db->query($sql);
     echo 
-      "<td><form action='showingsLogin.php.php' method='get'>
+      "<td><form action='showingsLogin.php' method='get'>
       <select name='TheatreComplex'>";
     $ComplexName = "cname";
     $City = "city";
