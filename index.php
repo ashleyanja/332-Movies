@@ -114,7 +114,7 @@ function DBLogin()
             <div class="carousel-background"><img src="img/TammySlide.jpg" alt=""></div>
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2>Tammy and the Dinosaur</h2>
+                <h2>Tammy and the T-Rex</h2>
                 <p>This Weeks Special Feature Picture</p>
                 <a href="#movie" class="btn-get-started scrollto">Browse Movies</a>
               </div>
