@@ -182,29 +182,11 @@ $result = $db->query($sql);
     } else {
         echo "0 results";
     }
-
-/*FIND SHOWINGS--------------------------*/
-    echo 
-      "<br>
-       <h4> Find showings near you!</h4>";
-    $sql = "SELECT cname, city from complex";
-    $result = $db->query($sql);
-    echo 
-      "<form action='showings.php' method='get'>
-      <select name='TheatreComplex'>";
-    $ComplexName = "cname";
-    $City = "city";
-    while($row = $result->fetch_assoc()) {
-      echo '<option value="'.$row[$ComplexName].'">' . $row[$ComplexName] . '</option>'; 
-    }
-    echo "</select>";
-    echo 
-      "<input type='submit' value='GO!'>
-      </form>";
-/*end find showings----------------------*/
   $db->close();
 ?>
 
+<p style='text-align:center'><a href='#login'>Login to find showings and purchase tickets!</a></p>
+        
 </div>
 </section>
 
