@@ -52,7 +52,7 @@ session_start();
       <br><br>
       <h3 class="section-title">Thank you for your Review!</h3>
     </header>
-    <p style='text-align:center'><a href='/index.php'>Return Home</a></p>
+    <p style='text-align:center'><a href='/login.php'>Return Home</a></p>
  </body>
 
 <?php
