@@ -268,10 +268,62 @@ $result = $db->query($sql);
 /*DISPLAY MOVIES------------------*/
 ?>
 
+<!--===========BEGIN WRITE A REVIEW============-->
+<button onclick="document.getElementById('modal-wrapper').style.display='block'" style="text-align:center;">
+Review a Movie</button>
+
+<div id="modal-wrapper" class="modal" style="text-align:center; color:white;"">
+  
+  <!--NOTE: need to add action to form-->
+  <form class="modal-content animate" method="post" action="addReview.php" style="background-color: #1a1a1a;">
+        
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('modal-wrapper').style.display='none'" class="close" title="Close PopUp">&times;</span>
+      <img src="img/movieReview.jpg" alt="Movie Review" class="avatar">
+      <h1>Review a Movie</h1>
+    </div>
+
+    <div id="reviewContainer" class="container">
+      <select name="reviewingMovie" class="form-control">
+        <?php
+          $sql = "SELECT title FROM movie";
+          $result = $db->query($sql);      
+          while($row = $result->fetch_assoc()) {
+            $Movie = $row["title"];
+            echo "<option value='".$Movie."'>".$Movie."</option>";
+          }
+          $db->close();
+        ?>
+      </select>
+    </div>
+
+    <div class="container">
+      <fieldset class="rating">
+        <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+        <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+        <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+        <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+        <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+        <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+        <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+        <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+        <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+        <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+      </fieldset>  
+    </div>
+
+    <input type="submit" value="Rate"></input>
+    
+  </form>
+</div>
+<!--===========END WRITE A REVIEW============-->
 
 </div>
 </section>
 
+  <!--==========================
+   Display Movie Reviews Section
+  ============================-->
     <section id="testimonials" class="section-bg wow fadeInUp">
       <div class="container">
 
