@@ -203,8 +203,37 @@ else
           <br><br>
           <h3 class="section-title">Our Movies</h3>
         </header>
+        <table>
+        <tr>
+        <td><h4 style="text-align:left;">Find a Showing: </h4></td>
+
 <?php
-/* iterate through and select names and emails */
+
+/*FIND SHOWINGS--------------------------*/
+    $db = DBLogin();
+    $sql = "SELECT cname, city from complex";
+    $result = $db->query($sql);
+    echo 
+      "<td><form action='showings.php' method='get'>
+      <select name='TheatreComplex'>";
+    $ComplexName = "cname";
+    $City = "city";
+    while($row = $result->fetch_assoc()) {
+      echo '<option value="'.$row[$ComplexName].'">' . $row[$ComplexName] . '</option>'; 
+    }
+    echo "</select>";
+    echo 
+      "<input type='submit' value='GO!'>
+      </form></td>";
+/*FIND SHOWINGS----------------------*/
+
+?>
+
+</tr>
+</table>
+        
+<?php
+/* DISPLAY MOVIES--------------*/
 $db = DBLogin();
 $sql = "SELECT title, runtime, plot, production, rating from movie";
 $result = $db->query($sql);
@@ -236,54 +265,9 @@ $result = $db->query($sql);
     } else {
         echo "0 results";
     }
-
+/*DISPLAY MOVIES------------------*/
 ?>
 
-<table cellpadding="50">
-<tr> 
-<th><h4 style="text-align:center;">Find a Showing: </h4></th> 
-<th><h4 style="text-align:center;">Leave a Review: </h4></th>
-</tr>
-<tr>
-
-<?php
-
-/*FIND SHOWINGS--------------------------*/
-    $sql = "SELECT cname, city from complex";
-    $result = $db->query($sql);
-    echo 
-      "<td><form action='showings.php' method='get'>
-      <select name='TheatreComplex'>";
-    $ComplexName = "cname";
-    $City = "city";
-    while($row = $result->fetch_assoc()) {
-      echo '<option value="'.$row[$ComplexName].'">' . $row[$ComplexName] . '</option>'; 
-    }
-    echo "</select>";
-    echo 
-      "<input type='submit' value='GO!'>
-      </form></td>";
-/*FIND SHOWINGS----------------------*/
-
-/*LEAVE REVIEW---------------------------*/
-  $sql2 = "SELECT title from movie";
-  $result = $db->query($sql2);
-  echo 
-      "<td><form action='' method='get'>
-      <select name='MovieReview'>";
-    $Movie = "title";
-    while($row = $result->fetch_assoc()) {
-      echo '<option value="'.$row[$Movie].'">' . $row[$Movie] . '</option>'; 
-    }
-    echo "</select>";
-    echo 
-      "<input type='submit' value='GO!'>
-      </form></td>
-      </tr>";
-/*LEAVE REVIEW----------------------------*/
-
-  $db->close();
-?>
 
 </div>
 </section>
