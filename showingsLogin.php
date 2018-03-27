@@ -148,7 +148,7 @@ Purchase Tickets</button>";
           $db->close();
         ?>
       </select>
-      <input type="text" placeholder="Quantity" name="quantity">        
+      <input type="number" placeholder="Quantity" name="quantity">        
       <button type="submit">Buy</button>
     </div>
     
