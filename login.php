@@ -65,7 +65,7 @@ if(!(array_key_exists('login',$_SESSION) && $_SESSION['login']))
   //$username = 10183354;
   $username = $_POST["accountNumber"];
   $password = $_POST["password"];
-  $sql = "SELECT Fname,Password,isAdmin from customer where accountNumber =".$username;
+  $sql = "SELECT Fname,Lname,email,Password,isAdmin from customer where accountNumber =".$username;
   $db = DBLogin();
 
     $result = $db->query($sql);
@@ -74,6 +74,8 @@ if(!(array_key_exists('login',$_SESSION) && $_SESSION['login']))
       // output data of each row
       $row = $result->fetch_assoc();
       $name = $row['Fname'];
+      $lname = $row['Lname'];
+      $email = $row['email'];
       $pw = $row['Password'];
       
       if($password == $pw)
@@ -95,6 +97,8 @@ if(!(array_key_exists('login',$_SESSION) && $_SESSION['login']))
   $db -> close();
   // Save values to the session
   $_SESSION["fname"] = $name; 
+  $_SESSION["lname"] = $lname;
+  $_SESSION["email"] = $email;
   $_SESSION['admin'] = $admin; // bool T if user is an admin
   $_SESSION['accountNumber'] = $username;
   $_SESSION['login'] = true;
@@ -397,6 +401,45 @@ Review a Movie</button>
     <!--==========================
       Login Section
     ============================-->
+    <section id="profile" class="section-bg wow fadeInUp">
+      <div class="container">
+
+        <div class="section-header">
+          <h3>User Profile</h3>
+          <p>You may edit your acount details here</p>
+        </div>
+
+      <!-- contact info -->
+        <div class="form">
+          <form action="editAccount.php" method="post">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="number" name="accountNumber" class="form-control" id="accountNumber" value="<?php echo $_POST['accountNumber']; ?>" min = "0" max="999999999" required />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="password" class="form-control" name="password" id="password" value="<?php echo $_POST['password']; ?>" required/>
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" name="fname" id="fname" value="<?php echo $_SESSION['fname']; ?>" required/>
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" name="lname" id="lname" value="<?php echo $_SESSION['lname']; ?>" required/>
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" class="form-control" name="email" id="email" value="<?php echo $_SESSION['email']; ?>" required/>
+                <div class="validation"></div>
+              </div>
+            <div class="text-center"><button type="submit">Update Account</button></div>
+            <br>
+          </form>
+        </div>
+
+      </div>
+    </section><!-- #contact -->
 
   </main>
 
