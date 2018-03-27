@@ -62,7 +62,12 @@ $db = DBLogin();
 if (isset($_POST["reviewingMovie"])) {
     $account = (int)$_SESSION["accountNumber"];
   $movie = $_POST['reviewingMovie'];
-  $rating = (int)$_POST['rating']; 
+  if (isset($_POST['rating'])){
+    $rating = (int)$_POST['rating'];
+  } 
+  else {
+    $rating = 0;
+  }
   $q = "INSERT INTO review (AccountNumber, Movie, Review) VALUES ('$account', '$movie', '$rating')
   ON DUPLICATE KEY UPDATE
   Review='$rating'";
