@@ -58,6 +58,12 @@ session_start();
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li>
           <li><a href="#movie">Movies</a></li>
+          <li class="menu-has-children"><a href="">My Account</a>
+            <ul>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">My Movies</a></li>
+            </ul>
+          </li> 
           <li><a href="#login">Login</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
@@ -150,6 +156,7 @@ $sql = "SELECT title, runtime, plot, production, rating from movie";
 $result = $db->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
+
     echo "<table class='t1'>
             <thead>
             <tr>
@@ -158,10 +165,27 @@ $result = $db->query($sql);
                 <th>Plot</th>
                 <th>Production</th>
                 <th>Rating</th>
+                <th>Score</th>
             </tr>
             </thead>
           ";
     while($row = $result->fetch_assoc()) {
+
+      $sql = "SELECT SUM(review) as score, COUNT(review) as n from review where movie = '{$row['title']}'";
+      $res = $db->query($sql);
+       if ($res->num_rows > 0) 
+       {
+          $r = $res->fetch_assoc();  
+          if($r['n'] == 0)
+          {
+            $score = "n/a";
+          } 
+          else
+          {
+            $score = $r['score'] / $r['n'];
+          }
+       }
+
       echo "<tbody>";
       echo "<tr>";
       echo "<td>" . $row["title"] . "</td>";
@@ -169,6 +193,7 @@ $result = $db->query($sql);
       echo "<td>" . $row["plot"] . "</td>";
       echo "<td>" . $row["production"] . "</td>";
       echo "<td>" . $row["rating"] . "</td>";
+      echo "<td>" . $score . "</td>";
       echo "</tr>";
       echo "</tbody>";
       }
@@ -196,7 +221,7 @@ $result = $db->query($sql);
           <div class="testimonial-item">
             <img src="img/rlm-1.jpg" class="testimonial-img" alt="">
             <h3>Saul Goodman</h3>
-            <h4>Ceo &amp; Founder</h4>
+            <h4>Watched Double Down</h4>
             <p>
               <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
               Neil Breen is the best person who has ever eaten tuna!
@@ -205,23 +230,23 @@ $result = $db->query($sql);
           </div>
 
           <div class="testimonial-item">
-            <img src="img/testimonial-2.jpg" class="testimonial-img" alt="">
-            <h3>Sara Wilsson</h3>
-            <h4>Designer</h4>
+            <img src="img/Russell-1.jpg" class="testimonial-img" alt="">
+            <h3>Russell Dawes</h3>
+            <h4>Watched Tammy and the T-Rex</h4>
             <p>
               <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-              Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+              5 T-Rex hands out of 5
               <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
             </p>
           </div>
 
           <div class="testimonial-item">
-            <img src="img/testimonial-3.jpg" class="testimonial-img" alt="">
-            <h3>Jena Karlis</h3>
-            <h4>Store Owner</h4>
+            <img src="img/chris.jpg" class="testimonial-img" alt="">
+            <h3>Chris Gray</h3>
+            <h4>Watched Tamy and the T-Rex 7 times</h4>
             <p>
               <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-              Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+              This is the best movie i have ever seen 
               <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
             </p>
           </div>

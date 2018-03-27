@@ -129,7 +129,7 @@ else
           <li class="menu-has-children"><a href="">My Account</a>
             <ul>
               <li><a href="#">Profile</a></li>
-              <li><a href="./userPurchases.php">My Purchases</a></li>
+              <li><a href="#">My Movies</a></li>
             </ul>
           </li> 
           <?php 
@@ -237,12 +237,13 @@ else
 </table>
         
 <?php
-/* DISPLAY MOVIES--------------*/
+/* iterate through and select names and emails */
 $db = DBLogin();
 $sql = "SELECT title, runtime, plot, production, rating from movie";
 $result = $db->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
+
     echo "<table class='t1'>
             <thead>
             <tr>
@@ -251,10 +252,27 @@ $result = $db->query($sql);
                 <th>Plot</th>
                 <th>Production</th>
                 <th>Rating</th>
+                <th>Score</th>
             </tr>
             </thead>
           ";
     while($row = $result->fetch_assoc()) {
+
+      $sql = "SELECT SUM(review) as score, COUNT(review) as n from review where movie = '{$row['title']}'";
+      $res = $db->query($sql);
+       if ($res->num_rows > 0) 
+       {
+          $r = $res->fetch_assoc();  
+          if($r['n'] == 0)
+          {
+            $score = "n/a";
+          } 
+          else
+          {
+            $score = $r['score'] / $r['n'];
+          }
+       }
+
       echo "<tbody>";
       echo "<tr>";
       echo "<td>" . $row["title"] . "</td>";
@@ -262,6 +280,7 @@ $result = $db->query($sql);
       echo "<td>" . $row["plot"] . "</td>";
       echo "<td>" . $row["production"] . "</td>";
       echo "<td>" . $row["rating"] . "</td>";
+      echo "<td>" . $score . "</td>";
       echo "</tr>";
       echo "</tbody>";
       }
@@ -269,8 +288,8 @@ $result = $db->query($sql);
     } else {
         echo "0 results";
     }
-/*DISPLAY MOVIES------------------*/
 ?>
+
 
 <!--===========BEGIN WRITE A REVIEW============-->
 <button onclick="document.getElementById('modal-wrapper').style.display='block'" style="text-align:center;">
