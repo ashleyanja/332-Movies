@@ -1,7 +1,7 @@
 <?php
+//
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@ session_start();
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
   <link href= "css/movie.css" rel="stylesheet">
-  <link href= "css/admin.css" rel="stylesheet">
+   <link href= "css/admin.css" rel="stylesheet">
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -88,15 +88,50 @@ session_start();
     Intro Section
   ============================-->
   <br><br><br><br><br>
-  <?php
-		echo "<H1>Welcome to the Administrator Control Panel, {$_SESSION['fname']}</H1>";
+  
+	
+	<?php
+	include "dbLogin.php";
+  echo "  <H1>Manage Theatres for {$_POST['complex']}</H1>";
+	$db = DBLogin();
+	// want to select all user and display them
+	$sql = "SELECT * from Theatre where Complex = '{$_POST['complex']}'";
+  //echo "$sql";
+	$result = $db->query($sql);
+  	if ($result->num_rows > 0) {
+    // output data of each row
+    echo "<table class='t1'>
+            <thead>
+            <tr>
+            	  <th>Number</th>
+                <th>Screen Size</th>
+                <th>Seats</th>
+                <th></th>
+            </tr>
+            </thead>
+          ";
+    while($row = $result->fetch_assoc()) {
+      echo "<tbody>";
+      echo "<tr>";
+      echo "<td>" . $row["TheatreNum"] . "</td>";
+      echo "<td>" . $row["ScreenSize"]. "</td>";
+      echo "<td>" . $row["MaxSeats"] . "</td>";
+      // view form
+      echo "<td><form action='updateTheatreInfo.php' method = 'post'>
+            <input type = 'hidden' name = 'member' value = '{$row["Complex"]}'/>
+            <input type='submit' value = 'Update Theatre'></input>
+            </form></td>";
+      echo "</tr>";
+      echo "</tbody>";
+      }
+    echo "</table>";
+    } else {
+        echo "0 results";
+    }
+
+    $db -> close();
 	?>
-	<Ul>
-  <li><form action='manageMembers.php' method = 'post'><input type='submit' value = 'Manage Members'></input></form></li>
-  <li><form action='manageComplexs.php' method = 'post'><input type='submit' value = 'Manage Complexs'></input></form></li>
-  <li><form action='manageMovies.php' method = 'post'><input type='submit' value = 'Manage Movies'></input></form></li>
-  <li><form action='movieStats.php' method = 'post'><input type='submit' value = 'Analytics'></input></form></li>
-	</Ul>
+	
 	
   <!--==========================
     Footer

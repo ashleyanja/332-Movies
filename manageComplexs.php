@@ -1,7 +1,7 @@
 <?php
+//
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@ session_start();
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
   <link href= "css/movie.css" rel="stylesheet">
-  <link href= "css/admin.css" rel="stylesheet">
+   <link href= "css/admin.css" rel="stylesheet">
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -88,15 +88,67 @@ session_start();
     Intro Section
   ============================-->
   <br><br><br><br><br>
-  <?php
-		echo "<H1>Welcome to the Administrator Control Panel, {$_SESSION['fname']}</H1>";
+  
+	<H1>Manage Complexs</H1>
+	<?php
+	include "dbLogin.php";
+	$db = DBLogin();
+	// want to select all user and display them
+	$sql = "SELECT * from complex";
+	$result = $db->query($sql);
+  	if ($result->num_rows > 0) {
+    // output data of each row
+    echo "<table class='t1'>
+            <thead>
+            <tr>
+            	<th>Complex</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>Phone Number</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+          ";
+    while($row = $result->fetch_assoc()) {
+      echo "<tbody>";
+      echo "<tr>";
+      echo "<td>" . $row["CName"] . "</td>";
+      echo "<td>" . $row["Street"] . " " . $row['City'] . "</td>";
+      echo "<td>" . $row["PostalCode"] . "</td>";
+      if(is_null($row["PhoneNumber"]))
+      {
+      	echo "<td>n/a</td>";
+      }
+      else
+      {
+      	echo "<td>" . $row["PhoneNumber"] . "</td>";
+      }
+      echo "<td><form action='updateComplex.php' method = 'post'>
+            <input type = 'hidden' name = 'complex' value = '{$row["CName"]}'/>
+            <input type = 'hidden' name = 'street' value = '{$row["Street"]}'/>
+            <input type = 'hidden' name = 'city' value = '{$row["City"]}'/>
+            <input type = 'hidden' name = 'postal' value = '{$row["PostalCode"]}'/>
+            <input type = 'hidden' name = 'number' value = '{$row["PhoneNumber"]}'/>
+
+            <input type='submit' value = 'Update Info'></input>
+            </form></td>";
+      // view form
+      echo "<td><form action='manageTheatres.php' method = 'post'>
+            <input type = 'hidden' name = 'complex' value = '{$row["CName"]}'/>
+            <input type='submit' value = 'View Theatres'></input>
+            </form></td>";
+      echo "</tr>";
+      echo "</tbody>";
+      }
+    echo "</table>";
+    } else {
+        echo "0 results";
+    }
+
+    $db -> close();
 	?>
-	<Ul>
-  <li><form action='manageMembers.php' method = 'post'><input type='submit' value = 'Manage Members'></input></form></li>
-  <li><form action='manageComplexs.php' method = 'post'><input type='submit' value = 'Manage Complexs'></input></form></li>
-  <li><form action='manageMovies.php' method = 'post'><input type='submit' value = 'Manage Movies'></input></form></li>
-  <li><form action='movieStats.php' method = 'post'><input type='submit' value = 'Analytics'></input></form></li>
-	</Ul>
+	
 	
   <!--==========================
     Footer

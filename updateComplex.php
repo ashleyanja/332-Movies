@@ -1,7 +1,7 @@
 <?php
+//
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@ session_start();
   <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
   <link href= "css/movie.css" rel="stylesheet">
-  <link href= "css/admin.css" rel="stylesheet">
+   <link href= "css/admin.css" rel="stylesheet">
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
@@ -88,15 +88,30 @@ session_start();
     Intro Section
   ============================-->
   <br><br><br><br><br>
-  <?php
-		echo "<H1>Welcome to the Administrator Control Panel, {$_SESSION['fname']}</H1>";
-	?>
-	<Ul>
-  <li><form action='manageMembers.php' method = 'post'><input type='submit' value = 'Manage Members'></input></form></li>
-  <li><form action='manageComplexs.php' method = 'post'><input type='submit' value = 'Manage Complexs'></input></form></li>
-  <li><form action='manageMovies.php' method = 'post'><input type='submit' value = 'Manage Movies'></input></form></li>
-  <li><form action='movieStats.php' method = 'post'><input type='submit' value = 'Analytics'></input></form></li>
-	</Ul>
+  
+
+	<?php
+  echo "<H1>Update info for {$_POST['complex']}</H1>";
+
+
+  echo"
+      <form action ='updateComplexInfo.php' method = 'post' >
+
+      <input type = 'text' name = 'complex' placeholder = '{$_POST['complex']}' value = '{$_POST['complex']}' required/>
+
+      <input type = 'text' name = 'street' placeholder = '{$_POST['street']}' value = '{$_POST['street']}' required/>
+
+      <input type = 'text' name = 'city' placeholder = '{$_POST['city']}' value = '{$_POST['city']}' required/>
+
+      <input type = 'text' name = 'postal' placeholder = '{$_POST['postal']}' value = '{$_POST['postal']}' required/>
+
+      <input type = 'number' name = 'number' placeholder = '{$_POST['number']}' value = '{$_POST['number']}' required/>
+      <input type = 'hidden' name = 'ogName' value = '{$_POST['complex']} '/>
+
+      <input type = 'submit' value = 'Update Info' />"
+
+?>
+  </form>
 	
   <!--==========================
     Footer
@@ -106,7 +121,7 @@ session_start();
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong>BizPage</strong>. All Rights Reserved
-      </div>
+      </div>  
       <div class="credits">
         <!--
           All the links in the footer should remain intact.
