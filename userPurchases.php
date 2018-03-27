@@ -89,7 +89,7 @@ if ($result && $result->num_rows > 0) {
       echo "<td>" . $row["Complex"] . "</td>";
       echo "<td>" . $row["Theatre"] . "</td>";
       echo "<td>" . $row["StartTime"] . "</td>";
-      echo "<td>" . $row["Day"] . "</td>";
+      echo "<td>" . date('M jS, Y', strtotime($row['Day'])) . "</td>";
       echo "<td>" . $row["NumTickets"] . "</td>";
       echo "</tr>";
       echo "</tbody>";
@@ -131,7 +131,7 @@ if ($result && $result->num_rows > 0) {
       echo "<td>" . $row["Complex"] . "</td>";
       echo "<td>" . $row["Theatre"] . "</td>";
       echo "<td>" . $row["StartTime"] . "</td>";
-      echo "<td>" . $row["Day"] . "</td>";
+      echo "<td>" . date('M jS, Y', strtotime($row['Day'])) . "</td>";
       echo "<td>" . $row["NumTickets"] . "</td>";
       echo "</tr>";
       echo "</tbody>";
@@ -154,6 +154,7 @@ $db->close();
     </div>
 
     <div class="container">
+      <!--
       <select name="cancelPurchase" class="form-control">
         <?php
           $account = (int)$_SESSION["accountNumber"];
@@ -178,6 +179,7 @@ $db->close();
           $db->close();
         ?>
       </select>
+      -->
       <input type="number" placeholder="# Tickets to Refund" name="refund">        
       <button type="submit">Submit</button>
     </div>
