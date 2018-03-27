@@ -129,7 +129,7 @@ else
           <li class="menu-has-children"><a href="">My Account</a>
             <ul>
               <li><a href="#">Profile</a></li>
-              <li><a href="#">My Movies</a></li>
+              <li><a href="./userPurchases.php">My Purchases</a></li>
             </ul>
           </li> 
           <?php 
