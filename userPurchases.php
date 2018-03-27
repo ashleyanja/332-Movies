@@ -62,8 +62,10 @@ $db = DBLogin();
 $account = (int)$_SESSION["accountNumber"];
 
 /*UPCOMING MOVIES ------------------------------------------------------------------------------------*/
-echo "<h3 style='text-align:center;'>Upcoming Movies</h3>";
-$q = "SELECT * FROM `reservation` WHERE `Day` >= CURDATE()";
+echo "<h3>Upcoming Movies</h3>";
+$q = "SELECT * FROM 
+      (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
+      WHERE reservation.day >= CURDATE()";
 $result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
   // output data of each row
@@ -90,19 +92,26 @@ if ($result && $result->num_rows > 0) {
       echo "</tbody>";
       }
     echo "</table>";
+    echo "<button onclick=\"document.getElementById('modal-wrapper').style.display='block'\"style=\"text-align:center;\">
+Cancel Purchase</button>";
     } else {
         echo "<p style='text-align:center;'>You have no upcoming movie reservations!</p>";
     }
 
+
+
 /*PAST MOVIES ------------------------------------------------------------------------------------*/
-echo "<h3 style='text-align:center;'>Past Movies</h3>";
-$q = "SELECT * FROM `reservation` WHERE `Day` <= CURDATE()";
+echo "<br><br><br><h3>Past Movies</h3>";
+$q = "SELECT * FROM 
+      (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
+      WHERE reservation.day <= CURDATE()";
 $result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
   // output data of each row
    echo "<table class='t1'>
             <thead>
             <tr>
+               <th>Movie</th>
                <th>Complex</th>
                <th>Theatre</th>
                <th>Start Time</th>
@@ -114,6 +123,7 @@ if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       echo "<tbody>";
       echo "<tr>";
+      echo "<td>" . $row["Movie"] . "</td>";
       echo "<td>" . $row["Complex"] . "</td>";
       echo "<td>" . $row["Theatre"] . "</td>";
       echo "<td>" . $row["StartTime"] . "</td>";
@@ -129,6 +139,46 @@ if ($result && $result->num_rows > 0) {
 $db->close();
 ?>
 
+<div id="modal-wrapper" class="modal">
+  
+  <form class="modal-content animate" method="post" action="/cancelPurchase.php">
+        
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('modal-wrapper').style.display='none'" class="close" title="Close PopUp">&times;</span>
+      <h1 style="text-align:center">Cancel Purchase</h1>
+    </div>
+
+    <div class="container">
+      <select name="cancelPurchase">
+        <?php
+          $sql = "SELECT * 
+                  FROM (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
+                  WHERE reservation.day >= CURDATE()";
+          $result = $db->query($sql);
+          $Movie = "Movie";
+          $Day = "Day";
+          $Time = "StartTime";
+          $TheatreNum = "Theatre";
+          $complex = "Complex";
+          $NumSeats = "NumSeats";
+          echo "<option value='' disabled selected>Select a Showing</option>";  
+          $rowString = "";       
+          while($row = $result->fetch_assoc()) {
+            $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
+            echo "<option value='$rowString'
+                  '>".$row[$Movie].' on '.$row[$Day].' at '.$row[$Time]."
+                </option>";
+          }
+          $db->close();
+        ?>
+      </select>
+      <input type="number" placeholder="Quantity" name="quantity">        
+      <button type="submit">Buy</button>
+    </div>
+    
+  </form>
+  
+</div>
 
 <!--==========================
   Footer
