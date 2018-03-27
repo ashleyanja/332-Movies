@@ -65,7 +65,8 @@ $account = (int)$_SESSION["accountNumber"];
 echo "<h3>Upcoming Movies</h3>";
 $q = "SELECT * FROM 
       (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
-      WHERE reservation.day >= CURDATE()";
+      WHERE reservation.day >= CURDATE()
+      AND AccountNumber = '$account'";
 $result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
   // output data of each row
@@ -104,7 +105,8 @@ Cancel Purchase</button>";
 echo "<br><br><br><h3>Past Movies</h3>";
 $q = "SELECT * FROM 
       (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
-      WHERE reservation.day <= CURDATE()";
+      WHERE reservation.day <= CURDATE()
+      AND AccountNumber = '$account'";
 $result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
   // output data of each row
@@ -151,29 +153,30 @@ $db->close();
     <div class="container">
       <select name="cancelPurchase">
         <?php
-          $sql = "SELECT * 
-                  FROM (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
-                  WHERE reservation.day >= CURDATE()";
-          $result = $db->query($sql);
+          $account = (int)$_SESSION["accountNumber"];
           $Movie = "Movie";
           $Day = "Day";
           $Time = "StartTime";
           $TheatreNum = "Theatre";
           $complex = "Complex";
-          $NumSeats = "NumSeats";
-          echo "<option value='' disabled selected>Select a Showing</option>";  
+          $NumSeats = "NumTickets";
+          $sql = "SELECT * 
+                  FROM (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
+                  WHERE reservation.day >= CURDATE()
+                  AND AccountNumber = '$account'";
+          $result = $db->query($sql);
+          var_dump($result);
+          echo "<option value='' disabled selected>Select a Reservation</option>";  
           $rowString = "";       
           while($row = $result->fetch_assoc()) {
             $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
-            echo "<option value='$rowString'
-                  '>".$row[$Movie].' on '.$row[$Day].' at '.$row[$Time]."
-                </option>";
+            echo "<option value='$rowString'>".$row[$Movie].' on '.$row[$Day].' at '.$row[$Time]."</option>";
           }
           $db->close();
         ?>
       </select>
-      <input type="number" placeholder="Quantity" name="quantity">        
-      <button type="submit">Buy</button>
+      <input type="number" placeholder="Number of Tickets to Refund" name="quantity">        
+      <button type="submit">Submit</button>
     </div>
     
   </form>
