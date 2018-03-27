@@ -131,7 +131,7 @@ button:hover {
 /* section used for pop up purchase window*/
 *{margin:0px; padding:0px; font-family:Helvetica, Arial, sans-serif;}
 
-input[type=text], select[name="selectShowings"]{
+input[type=text], input[type=number], select[name="selectShowings"]{
     width: 90%;
     padding: 12px 20px;
     margin: 8px 26px;
