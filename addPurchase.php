@@ -52,8 +52,6 @@ session_start();
       <br><br>
       <h3 class="section-title">Thank you for your Purchase!</h3>
     </header>
-    <p style='text-align:center'><a href='/login.php'>Return Home</a></p>
- </body>
 <?php
 
 $ammount = (int)$_POST["quantity"];
@@ -85,28 +83,34 @@ $seats = "NumSeats";
 
 while($row = $result->fetch_assoc()) {
 
-	/*If there are enough seats available, insert into reservation AND subtract from seat amounts*/
+	/*If there are enough seats available, insert into reservation AND subtract from seat amounts FLAAAAAAAAAAAAAAAAAAAAAAAGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG (update, no tix left)*/
 	$SeatsLeft = $row[$seats] - $ammount;
 	if (($SeatsLeft) >= 0) {
-			$sql = "INSERT INTO reservation (AccountNumber, Complex, Theatre, StartTime, Day, NumTickets) VALUES ('$account', '$complex', '$TheatreNum', '$Time', '$Day', '$ammount')";
+			$sql = "INSERT INTO reservation (AccountNumber, Complex, Theatre, StartTime, Day, NumTickets) VALUES ('$account', '$complex', '$TheatreNum', '$Time', '$Day', '$ammount')
+              ON DUPLICATE KEY UPDATE NumTickets = NumTickets + '$ammount'";
 			if ($db->query($sql) == TRUE){
-				echo "<p>Successs</p>";
 				$sql2 = "UPDATE showing 
 						SET numseats='$SeatsLeft'
 						WHERE complex = '$complex' AND movie = '$Movie' AND day = '$Day'";
 				if ($db->query($sql2) == TRUE) {
-					echo "Seats Updated";
+          echo "<p style='text-align:center;'>Tickets were added to your reservation!</p>";
 				}
 			}
 			else {
 				echo "Error: " . $sql . "<br>" . $db->error;
 			}
-			
-	}	
+  }
+  else {
+    echo "<p 'text-align:center;'>Sorry, there aren't enough seats left for that showing!</p>";
+  }
 }
 
 $db->close();
 ?>
+
+<p style='text-align:center'><a href='/login.php'>Return Home</a></p>
+</div>
+</section>
 
   <!--==========================
     Footer
