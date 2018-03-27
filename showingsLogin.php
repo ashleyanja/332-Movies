@@ -96,7 +96,7 @@ $numRows = $result->num_rows;
       echo "<tbody>";
       echo "<tr>";
       echo "<td>" . $row["movie"] . "</td>";
-      echo "<td>" . $row["day"] . "</td>";
+      echo "<td>" . date('M jS, Y', strtotime($row['day'])) . "</td>";
       echo "<td>" . $row["starttime"] . "</td>";
       echo "<td>" . $row["numseats"] . "</td>";
       echo "<td>" . $row["theatre"] . "</td>";
@@ -142,7 +142,7 @@ Purchase Tickets</button>";
           while($row = $result->fetch_assoc()) {
             $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
             echo "<option value='$rowString'
-                  '>".$row[$Movie].' on '.$row[$Day].' at '.$row[$Time]."
+                  '>".$row[$Movie].' on '.date('M jS, Y', strtotime($row[$Day])).' at '.$row[$Time]."
                 </option>";
           }
           $db->close();
