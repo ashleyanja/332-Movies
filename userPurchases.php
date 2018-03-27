@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +99,7 @@ if ($result && $result->num_rows > 0) {
     echo "<button onclick=\"document.getElementById('modal-wrapper').style.display='block'\"style=\"text-align:center;\">
 Cancel Purchase</button>";
     } else {
-        echo "<p style='text-align:center;'>You have no upcoming movie reservations!</p>";
+        echo "<p>You have no upcoming movie reservations!</p>";
     }
 
 
@@ -138,7 +139,7 @@ if ($result && $result->num_rows > 0) {
       }
     echo "</table>";
     } else {
-        echo "<p style='text-align:center;'>You have no past movie reservations!</p>";
+        echo "<p>You have no past movie reservations!</p>";
     }
 $db->close();
 ?>
@@ -154,9 +155,9 @@ $db->close();
     </div>
 
     <div class="container">
-      <!--
       <select name="cancelPurchase" class="form-control">
         <?php
+          $db = DBLogin();
           $account = (int)$_SESSION["accountNumber"];
           $Movie = "Movie";
           $Day = "Day";
@@ -170,7 +171,7 @@ $db->close();
                   AND AccountNumber = '$account'";
           $result = $db->query($sql);
           var_dump($result);
-          echo "<option value='' disabled selected>Select a Reservation</option>";  
+          echo "<option value='' disabled selected>Select a Reservation </option>";  
           $rowString = "";       
           while($row = $result->fetch_assoc()) {
             $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
@@ -179,7 +180,6 @@ $db->close();
           $db->close();
         ?>
       </select>
-      -->
       <input type="number" placeholder="# Tickets to Refund" name="refund">        
       <button type="submit">Submit</button>
     </div>
