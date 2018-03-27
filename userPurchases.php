@@ -60,8 +60,11 @@ include "dbLogin.php";
 $db = DBLogin();
 
 $account = (int)$_SESSION["accountNumber"];
-$sql = "SELECT * from reservation where accountnumber = '$account'";
-$result = $db->query($sql);  
+
+/*UPCOMING MOVIES ------------------------------------------------------------------------------------*/
+echo "<h3 >Upcoming Movies</h3>";
+$q = "SELECT * FROM `reservation` WHERE `Day` >= CURDATE()";
+$result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
   // output data of each row
    echo "<table class='t1'>
@@ -88,9 +91,41 @@ if ($result && $result->num_rows > 0) {
       }
     echo "</table>";
     } else {
-        echo "<p style='text-align:center;'>You have no reservations!</p>";
+        echo "<p style='text-align:center;'>You have no upcoming movie reservations!</p>";
     }
 
+/*PAST MOVIES ------------------------------------------------------------------------------------*/
+echo "<h3 >Past Movies</h3>";
+$q = "SELECT * FROM `reservation` WHERE `Day` <= CURDATE()";
+$result = $db->query($q);  
+if ($result && $result->num_rows > 0) {
+  // output data of each row
+   echo "<table class='t1'>
+            <thead>
+            <tr>
+               <th>Complex</th>
+               <th>Theatre</th>
+               <th>Start Time</th>
+               <th>Day</th>
+               <th>Tickets</th>
+            </tr>
+            </thead>
+          ";
+    while($row = $result->fetch_assoc()) {
+      echo "<tbody>";
+      echo "<tr>";
+      echo "<td>" . $row["Complex"] . "</td>";
+      echo "<td>" . $row["Theatre"] . "</td>";
+      echo "<td>" . $row["StartTime"] . "</td>";
+      echo "<td>" . $row["Day"] . "</td>";
+      echo "<td>" . $row["NumTickets"] . "</td>";
+      echo "</tr>";
+      echo "</tbody>";
+      }
+    echo "</table>";
+    } else {
+        echo "<p style='text-align:center;'>You have no past movie reservations!</p>";
+    }
 $db->close();
 ?>
 
