@@ -68,7 +68,6 @@ if (isset($_POST["reviewingMovie"])) {
   Review='$rating'";
 
   if ($db->query($q) == TRUE){
-    echo "<p>Successs</p>";
   }
   else {
     echo "Error: " . $q . "<br>" . $db->error;
