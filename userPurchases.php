@@ -62,7 +62,7 @@ $db = DBLogin();
 $account = (int)$_SESSION["accountNumber"];
 
 /*UPCOMING MOVIES ------------------------------------------------------------------------------------*/
-echo "<h3 style='text-align:center;>Upcoming Movies</h3>";
+echo "<h3 style='text-align:center;'>Upcoming Movies</h3>";
 $q = "SELECT * FROM `reservation` WHERE `Day` >= CURDATE()";
 $result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
@@ -95,7 +95,7 @@ if ($result && $result->num_rows > 0) {
     }
 
 /*PAST MOVIES ------------------------------------------------------------------------------------*/
-echo "<h3 style='text-align:center;>Past Movies</h3>";
+echo "<h3 style='text-align:center;'>Past Movies</h3>";
 $q = "SELECT * FROM `reservation` WHERE `Day` <= CURDATE()";
 $result = $db->query($q);  
 if ($result && $result->num_rows > 0) {
@@ -128,6 +128,7 @@ if ($result && $result->num_rows > 0) {
     }
 $db->close();
 ?>
+
 
 <!--==========================
   Footer
