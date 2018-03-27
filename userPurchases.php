@@ -73,6 +73,7 @@ if ($result && $result->num_rows > 0) {
    echo "<table class='t1'>
             <thead>
             <tr>
+               <th>Movie</th>
                <th>Complex</th>
                <th>Theatre</th>
                <th>Start Time</th>
@@ -84,6 +85,7 @@ if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       echo "<tbody>";
       echo "<tr>";
+      echo "<td>" . $row["Movie"] . "</td>";
       echo "<td>" . $row["Complex"] . "</td>";
       echo "<td>" . $row["Theatre"] . "</td>";
       echo "<td>" . $row["StartTime"] . "</td>";
@@ -147,11 +149,12 @@ $db->close();
         
     <div class="imgcontainer">
       <span onclick="document.getElementById('modal-wrapper').style.display='none'" class="close" title="Close PopUp">&times;</span>
+      <img src="img/movieReview.jpg" alt="Movie Review" class="avatar">
       <h1 style="text-align:center">Cancel Purchase</h1>
     </div>
 
     <div class="container">
-      <select name="cancelPurchase">
+      <select name="cancelPurchase" class="form-control">
         <?php
           $account = (int)$_SESSION["accountNumber"];
           $Movie = "Movie";
@@ -170,12 +173,12 @@ $db->close();
           $rowString = "";       
           while($row = $result->fetch_assoc()) {
             $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
-            echo "<option value='$rowString'>".$row[$Movie].' on '.$row[$Day].' at '.$row[$Time]."</option>";
+            echo "<option value='$rowString'>".$row[$Movie]." on ".$row[$Day]." at ".$row[$Time]."</option>";
           }
           $db->close();
         ?>
       </select>
-      <input type="number" placeholder="Number of Tickets to Refund" name="quantity">        
+      <input type="number" placeholder="# Tickets to Refund" name="refund">        
       <button type="submit">Submit</button>
     </div>
     
