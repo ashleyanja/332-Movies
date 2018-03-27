@@ -72,7 +72,7 @@ echo "<header class='section-header'>
       </header>";
 
 /* iterate through and select showings from complex */
-$sql = "SELECT theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
+$sql = "SELECT * FROM showing WHERE complex = '$theatre' AND `Day` >= CURDATE()";
 $result = $db->query($sql);
 if (!$result) {
     trigger_error('Invalid query: ' . $db->error);
@@ -105,11 +105,11 @@ $numRows = $result->num_rows;
       }
     echo "</table>";
     echo "</fieldset>";
-  } else {
-    echo "0 results";
-  }
-  echo "<button onclick=\"document.getElementById('modal-wrapper').style.display='block'\"style=\"text-align:center;\">
+    echo "<button onclick=\"document.getElementById('modal-wrapper').style.display='block'\"style=\"text-align:center;\">
 Purchase Tickets</button>";
+  } else {
+    echo "<p style='text-align:center;'>There are currently no showings right now.</p>";
+  }
 ?>
 <!--END PHP==============-->
 <!--END SHOWINGS =========-->
@@ -129,7 +129,7 @@ Purchase Tickets</button>";
     <div class="container">
       <select name="selectShowings">
         <?php
-          $sql = "SELECT complex, theatre, starttime, day, numseats, movie FROM showing WHERE complex = '$theatre'";
+          $sql = "SELECT * FROM showing WHERE complex = '$theatre' AND `Day` >= CURDATE()";
           $result = $db->query($sql);
           $Movie = "movie";
           $Day = "day";
