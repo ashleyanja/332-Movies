@@ -200,12 +200,12 @@ $result = $db->query($sql);
         <div class="owl-carousel testimonials-carousel">
 
           <div class="testimonial-item">
-            <img src="img/testimonial-1.jpg" class="testimonial-img" alt="">
+            <img src="img/rlm-1.jpg" class="testimonial-img" alt="">
             <h3>Saul Goodman</h3>
             <h4>Ceo &amp; Founder</h4>
             <p>
               <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-              Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+              Neil Breen is the best person who has ever eaten tuna!
               <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
             </p>
           </div>
