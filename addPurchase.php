@@ -101,7 +101,7 @@ while($row = $result->fetch_assoc()) {
 			}
   }
   else {
-    echo "<p 'text-align:center;'>Sorry, there aren't enough seats left for that showing!</p>";
+    echo "<p style='text-align:center;'>Sorry, there aren't enough seats left for that showing!</p>";
   }
 }
 
