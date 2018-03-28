@@ -40,28 +40,19 @@
 	include 'dbLogin.php';
 	//print_r($_POST);
 	$db = DBLogin();
-  echo "<h1>Updating Info for {$_POST['complex']} theatre {$_POST['number']}</h1>";
-  echo" <form action='updateTheatreInfo.php' method='post' >
-   <p> Screen Size</p>
-   "?>
-    <select name='size' required>
-            <option <?php if($_POST['screen'] == 'S'){echo 'selected';} ?> value='S'>S</option>
-            <option <?php if($_POST['screen'] == 'M'){echo 'selected';} ?> value='M'>M</option>
-            <option <?php if($_POST['screen'] == 'L'){echo 'selected';} ?> value='L'>L</option>
-    </select>
-    <?php
-    echo "
-    <br>
-     <input type='Number' name='number' placeholder='Number' value ='{$_POST['number']}' required>
 
-    <input type='number' name='Seats' placeholder='Seats' value='{$_POST['seats']}' required>
-    
-     <input type='hidden' name='complex' value = '{$_POST['complex']}''>
-     <input type='hidden' name='ogNum' value = '{$_POST['number']}''>
-      
-    <input type='submit' value='Update Theatre'>
-  </form>"
- 
+	$sql = "UPDATE theatre
+			set TheatreNum = {$_POST['number']}, ScreenSize = '{$_POST['size']}', MaxSeats = {$_POST['Seats']}
+			where TheatreNum = {$_POST['ogNum']} AND Complex = '{$_POST['complex']}'";
+
+	if($db -> query($sql))
+	{
+		echo "<h1>Theatre Info Updated</h1>";
+	}
+	else
+	{
+		echo "<h1>Error Updating Theatre Info</h1>";
+	}
 ?>
 <body>
 

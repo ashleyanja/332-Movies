@@ -40,28 +40,45 @@
 	include 'dbLogin.php';
 	//print_r($_POST);
 	$db = DBLogin();
-  echo "<h1>Updating Info for {$_POST['complex']} theatre {$_POST['number']}</h1>";
-  echo" <form action='updateTheatreInfo.php' method='post' >
-   <p> Screen Size</p>
-   "?>
-    <select name='size' required>
-            <option <?php if($_POST['screen'] == 'S'){echo 'selected';} ?> value='S'>S</option>
-            <option <?php if($_POST['screen'] == 'M'){echo 'selected';} ?> value='M'>M</option>
-            <option <?php if($_POST['screen'] == 'L'){echo 'selected';} ?> value='L'>L</option>
-    </select>
-    <?php
-    echo "
-    <br>
-     <input type='Number' name='number' placeholder='Number' value ='{$_POST['number']}' required>
+  $id = $_POST['id'];
+  if($_POST['password'] == '')
+  {
+    $pw = $_POST['ogPW'];
+  }
+  else
+  {
+    $pw = $_POST['password'];
+  }
 
-    <input type='number' name='Seats' placeholder='Seats' value='{$_POST['seats']}' required>
-    
-     <input type='hidden' name='complex' value = '{$_POST['complex']}''>
-     <input type='hidden' name='ogNum' value = '{$_POST['number']}''>
-      
-    <input type='submit' value='Update Theatre'>
-  </form>"
- 
+  if($_POST['cc'] == '')
+  {
+    $cc = $_POST['ogCC'];
+  }
+  else
+  {
+    $cc = $_POST['cc'];
+  }
+  $phone = $_POST['phone'];
+  $fname = $_POST['fname'];
+  $lname = $_POST['lname'];
+  $email = $_POST['email'];
+  $ccExp = $_POST['exp'];
+
+  $ccExp = strtotime($_POST["exp"]);
+  $ccExp = date('Y-m-d',$ccExp);
+  
+	$sql = "UPDATE customer
+			set Password = '{$pw}', Fname = '{$fname}', Lname = '{$lname}', PhoneNumber = {$phone}, Email = '{$email}', CreditCardNum = '{$cc}', CreditCardExp = '{$ccExp}'
+			where AccountNumber = {$id}";
+
+	if($db -> query($sql))
+	{
+		echo "<h1>Profile Info Updated</h1>";
+	}
+	else
+	{
+		echo "<h1>Error Updating Profile Info</h1>";
+	}
 ?>
 <body>
 

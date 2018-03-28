@@ -117,8 +117,16 @@ session_start();
       echo "<td>" . $row["ScreenSize"]. "</td>";
       echo "<td>" . $row["MaxSeats"] . "</td>";
       // view form
-      echo "<td><form action='updateTheatreInfo.php' method = 'post'>
-            <input type = 'hidden' name = 'member' value = '{$row["Complex"]}'/>
+      echo "<td><form action='updateTheatre.php' method = 'post'>
+
+            <input type = 'hidden' name = 'number' value = '{$row["TheatreNum"]}'/>
+
+            <input type = 'hidden' name = 'complex' value = '{$row["Complex"]}'/>
+
+            <input type = 'hidden' name = 'screen' value = '{$row["ScreenSize"]}'/>
+
+            <input type = 'hidden' name = 'seats' value = '{$row["MaxSeats"]}'/>
+
             <input type='submit' value = 'Update Theatre'></input>
             </form></td>";
       echo "</tr>";
@@ -133,7 +141,7 @@ session_start();
 	?>
 	
 <!-- Add a new theatre -->
-  <form action="addNewTheatre.php" method="post">
+  <form action="addTheatre.php" method="post">
    <p> Screen Size</p>
     <select name="size"  required>
             <option value="S">S</option>
@@ -143,6 +151,9 @@ session_start();
     <br>
      <input type="Number" name="number" placeholder="Number" required>
     <input type="number" name="Seats" placeholder="Seats" required>
+    <?php
+    echo "<input type='hidden' name='complex' value = '{$_POST['complex']}''>";
+      ?>
     <input type="submit" value="Add New Theatre">
   </form>
 	

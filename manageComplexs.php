@@ -151,14 +151,14 @@ session_start();
 	
 
   <!-- Add a new Theatre -->
-
-  <form action = "addNewComplex.php" method=" post">
-    <input type="text" name="name">
-    <input type="text" name="street">
-    <input type="text" name="city">
-    <input type="number" name="phone">
-    <input type="text" name="postal">
-    <input type="submit" name="submit">
+<h3>Add A New Complex</h3>
+  <form action = "addComplex.php" method="post">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="street" placeholder="Street" required>
+    <input type="text" name="city" placeholder="City" required>
+    <input type="number" name="phone" placeholder="Phone Number" required>
+    <input type="text" name="postal" placeholder="Postal Code" required>
+    <input type="submit" name="submit" value="Add New Complex" required>
   </form>
 	
   <!--==========================
