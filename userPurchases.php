@@ -150,7 +150,6 @@ $db->close();
         
     <div class="imgcontainer">
       <span onclick="document.getElementById('modal-wrapper').style.display='none'" class="close" title="Close PopUp">&times;</span>
-      <img src="img/movieReview.jpg" alt="Movie Review" class="avatar">
       <h1 style="text-align:center">Cancel Purchase</h1>
     </div>
 
