@@ -95,6 +95,8 @@ session_start();
   <li><form action='manageMembers.php' method = 'post'><input type='submit' value = 'Manage Members'></input></form></li>
   <li><form action='manageComplexs.php' method = 'post'><input type='submit' value = 'Manage Complexs'></input></form></li>
   <li><form action='manageMovies.php' method = 'post'><input type='submit' value = 'Manage Movies'></input></form></li>
+  <li><form action='manageShowing.php' method = 'post'><input type='submit' value = 'Manage Showings'></input></form></li>
+  <li><form action='addShowing.php' method = 'post'><input type='submit' value = 'Add Showing'></input></form></li>
   <li><form action='movieStats.php' method = 'post'><input type='submit' value = 'Analytics'></input></form></li>
 	</Ul>
 	
