@@ -40,7 +40,7 @@ session_start();
   ======================================================= -->
 </head>
 
-<body>
+<body>  
 
 <!--==========================
  Showings Section
@@ -96,7 +96,7 @@ $numRows = $result->num_rows;
       echo "<tbody>";
       echo "<tr>";
       echo "<td>" . $row["Movie"] . "</td>";
-      echo "<td>" . date('M jS, Y', strtotime($row['day'])) . "</td>";
+      echo "<td>" . date('M jS, Y', strtotime($row['Day'])) . "</td>";
       echo "<td>" . $row["StartTime"] . "</td>";
       echo "<td>" . $row["NumSeats"] . "</td>";
       echo "<td>" . $row["Theatre"] . "</td>";

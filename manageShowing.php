@@ -102,7 +102,7 @@ session_start();
                 <?php
                 include "dbLogin.php";
                 $db = DBLogin();
-                $sql = "SELECT * from showing";
+                $sql = "SELECT * from showing ORDER BY Movie, Day DESC";
                 $Movie = "Movie";
                 $Day = "Day";
                 $Time = "StartTime";

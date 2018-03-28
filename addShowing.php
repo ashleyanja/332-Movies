@@ -120,8 +120,8 @@ session_start();
             <td>
               <select name="selectComplex" required>
                 <?php
-                $sql = "SELECT *
-                  FROM theatre";
+                $sql = "SELECT Complex
+                  FROM theatre GROUP BY Complex";
                 $result = $db->query($sql);
                 $rowString = "";
                 while($row = $result->fetch_assoc()) 
