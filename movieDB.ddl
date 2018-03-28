@@ -138,7 +138,8 @@ CREATE TABLE reservation
 Insert into complex values
 ("Odeplex Cineon","6135551829","14 Doggo Drive","Kingston","K3Z5L4"),
 ("Mandlark Cinemas","6135553145","72 Birb Boulevard","Kingston","K8M5N8"),
-("The Reening Scroom","6135551234","45 Snek Street","Kingston","T6U8O8");
+("The Reening Scroom","6135551234","45 Snek Street","Kingston","T6U8O8"),
+("Galaxy Plex" , "6135551234","42 Snek Street","Kingston","T6U8O8");
 
 Insert into supplier values
 ("Movies R Us",NULL,NULL,NULL,NULL,NULL,NULL),
@@ -159,17 +160,18 @@ Insert into movie values
 "Movies R Us","Python Pictures","PG");
 
 Insert into runs values
-("Tammy and the T-Rex", "Odeplex Cineon", '1997-10-10', 1999-01-28),
-("Tammy and the T-Rex", "Mandlark Cinemas", '1997-10-10', 1999-02-09),
-("Tammy and the T-Rex", "The Reening Scroom", '1997-10-10', 1999-02-12),
+("Tammy and the T-Rex", "Odeplex Cineon", '2018-03-10', '2018-06-10'),
+("Tammy and the T-Rex", "Mandlark Cinemas", '2018-03-10', '2018-06-10'),
+("Tammy and the T-Rex", "The Reening Scroom", '2018-03-10', '2018-06-10'),
 
-("Shrek Forever After", "Odeplex Cineon", 2010-08-18, 2010-11-30),
-("Shrek Forever After", "Mandlark Cinemas", 2010-08-18, 2010-11-28),
-("Shrek Forever After", "The Reening Scroom", 2010-08-18, 2010-11-25),
+("Shrek Forever After", "Odeplex Cineon", '2018-03-10', '2018-06-10'),
+("Shrek Forever After", "Mandlark Cinemas", '2018-03-10', '2018-06-10'),
+("Shrek Forever After", "The Reening Scroom", '2018-03-10', '2018-06-10'),
+("Shrek Forever After", "Galaxy Plex", '2010-03-10', '2020-06-10'),
 
-("Monty Python and the Holy Grail", "Odeplex Cineon", 1975-06-10, 1975-09-10),
-("Monty Python and the Holy Grail", "Mandlark Cinemas", 1975-06-10, 1975-09-18),
-("Monty Python and the Holy Grail", "The Reening Scroom", 1975-06-10, 1975-09-15);
+("Monty Python and the Holy Grail", "Odeplex Cineon", '2018-03-10', '2018-06-10'),
+("Monty Python and the Holy Grail", "Mandlark Cinemas", '2018-03-10', '2018-06-10'),
+("Monty Python and the Holy Grail", "The Reening Scroom", '2018-03-10', '2018-06-10');
 
 
 Insert into theatre values
@@ -181,21 +183,47 @@ Insert into theatre values
 (3, "Mandlark Cinemas", "L", 50),
 (1, "The Reening Scroom", "S", 30),
 (2, "The Reening Scroom", "M", 40),
-(3, "The Reening Scroom", "L", 50);
+(3, "The Reening Scroom", "L", 50),
+(1, "Galaxy Plex", "S", 30),
+(2, "Galaxy Plex", "M", 40),
+(3, "Galaxy Plex", "L", 50);
 
 
 Insert into showing values
-("Odeplex Cineon", 1, "5:00pm", '1998-11-18', 15, "Tammy and the T-Rex"),
-("Mandlark Cinemas", 1, "5:30pm", '1998-11-18', 10, "Tammy and the T-Rex"),
-("The Reening Scroom", 1, "6:00pm", '1998-11-18', 20, "Tammy and the T-Rex"),
+("Odeplex Cineon", 1, "17:00", '2018-03-30', 15, "Tammy and the T-Rex"),
+("Mandlark Cinemas", 1, "17:30", '2018-03-30', 10, "Tammy and the T-Rex"),
+("The Reening Scroom", 1, "18:00", '2018-03-30', 20, "Tammy and the T-Rex"),
+("Odeplex Cineon", 1, "20:00", '2018-03-30', 15, "Tammy and the T-Rex"),
+("Mandlark Cinemas", 1, "20:30", '2018-03-30', 10, "Tammy and the T-Rex"),
+("The Reening Scroom", 1, "21:00", '2018-03-30', 20, "Tammy and the T-Rex"),
+("Odeplex Cineon", 1, "17:00", '2018-03-10', 15, "Tammy and the T-Rex"),
+("Mandlark Cinemas", 1, "17:30", '2018-03-20', 10, "Tammy and the T-Rex"),
+("The Reening Scroom", 1, "20:00", '2018-03-11', 20, "Tammy and the T-Rex"),
 
-("Odeplex Cineon", 2, "7:00pm", '1975-06-10', 40, "Monty Python and the Holy Grail"),
-("Mandlark Cinemas", 2, "8:30pm", '1975-06-10', 10, "Monty Python and the Holy Grail"),
-("The Reening Scroom", 2, "5:00pm", '1975-06-10', 40, "Monty Python and the Holy Grail"),
+("Odeplex Cineon", 2, "19:00", '2018-03-30', 40, "Monty Python and the Holy Grail"),
+("Mandlark Cinemas", 2, "20:30", '2018-03-30', 10, "Monty Python and the Holy Grail"),
+("The Reening Scroom", 2, "17:00", '2018-03-30', 40, "Monty Python and the Holy Grail"),
+("Odeplex Cineon", 2, "17:00", '2018-03-30', 40, "Monty Python and the Holy Grail"),
+("Mandlark Cinemas", 2, "17:30", '2018-03-30', 10, "Monty Python and the Holy Grail"),
+("The Reening Scroom", 2, "20:00", '2018-03-30', 40, "Monty Python and the Holy Grail"),
+("Odeplex Cineon", 2, "17:00", '2018-03-10', 40, "Monty Python and the Holy Grail"),
+("Mandlark Cinemas", 2, "17:30", '2018-03-20', 10, "Monty Python and the Holy Grail"),
+("The Reening Scroom", 2, "20:00", '2018-03-11', 40, "Monty Python and the Holy Grail"),
 
-("Odeplex Cineon", 3, "12:00pm", '2010-08-18', 50, "Shrek Forever After"),
-("Mandlark Cinemas", 3, "3:30pm", '2010-08-18', 45, "Shrek Forever After"),
-("The Reening Scroom", 3, "4:00pm", '2010-08-18', 30, "Shrek Forever After");
+("Odeplex Cineon", 3, "12:00", '2018-03-30', 50, "Shrek Forever After"),
+("Mandlark Cinemas", 3, "13:30", '2018-03-30', 45, "Shrek Forever After"),
+("The Reening Scroom", 3, "16:00", '2018-03-30', 30, "Shrek Forever After"),
+("Odeplex Cineon", 3, "14:00", '2018-03-30', 50, "Shrek Forever After"),
+("Mandlark Cinemas", 3, "17:30", '2018-03-30', 45, "Shrek Forever After"),
+("The Reening Scroom", 3, "18:00", '2018-03-30', 30, "Shrek Forever After"),
+("Odeplex Cineon", 3, "14:00", '2018-03-15', 50, "Shrek Forever After"),
+("Mandlark Cinemas", 3, "17:30", '2018-03-12', 45, "Shrek Forever After"),
+("The Reening Scroom", 3, "18:00", '2018-03-22', 30, "Shrek Forever After"),
+
+("Galaxy Plex", 3, "12:00", '2018-03-30', 50, "Shrek Forever After"),
+("Galaxy Plex", 2, "13:30", '2018-03-30', 45, "Shrek Forever After"),
+("Galaxy Plex", 1, "16:00", '2018-03-30', 30, "Shrek Forever After"),
+("Galaxy Plex", 3, "14:00", '2018-03-30', 50, "Shrek Forever After");
 
 Insert into actors values
 ("Tammy and the T-Rex","Denise","Richards"),
@@ -228,8 +256,16 @@ Insert into customer values
 (10185372, "ripley", "Chris", "Gray", "1234567890", "email@address.com", "1234 5677 8300 1234", '2020-08-18',true);
 
 Insert into review values
-(10183354, "Shrek Forever After", 8);
+(10183354, "Shrek Forever After", 80),
+(10183354, "Monty Python and the Holy Grail", 80),
+(10183354, "Tammy and the T-Rex", 100),
+(10185372, "Shrek Forever After", 70),
+(10185372, "Monty Python and the Holy Grail", 90),
+(10185372, "Tammy and the T-Rex", 100);
+
 
 Insert into reservation values
-(10183354, "Mandlark Cinemas", 3, "3:30pm", '2010-08-18', 2);
+(10183354, "Mandlark Cinemas", 3, "13:30", '2018-03-30', 2),
+(10183354, "Odeplex Cineon", 1, "17:00", '2018-03-10', 3),
+(10183354, "Mandlark Cinemas", 2, "17:30", '2018-03-20', 2);
 
