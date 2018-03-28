@@ -103,7 +103,7 @@ session_start();
       $NumSeats = (int)$array[5];
 
       echo "<h2> Updating showing for:</h2>
-            <p>$Movie at Complex: $complex in Theatre $TheatreNum  on ".strtotime($Day)." at $Time.</p>";
+            <p>$Movie at Complex: $complex in Theatre $TheatreNum  on ".date('M jS, Y',strtotime($Day))." at $Time.</p>";
       ?>
  
  <form method="post" action="./updateShowingComplex.php">
@@ -140,6 +140,14 @@ session_start();
           ?>
         </select>
       </td>
+      <tr>
+        <td><p>Update Date:</p></td>
+        <td><input name="addDay" type="date" placeholder="YYYY-MM-DD" required></td>
+      </tr>
+      <tr>
+        <td><p>Update Time:</p></td>
+        <td><input name="addTime" id="time" type="time" placeholder="24:00" required></td>
+      </tr>
     </tr>
   </table>
   <input type="submit" value="Submit!">
