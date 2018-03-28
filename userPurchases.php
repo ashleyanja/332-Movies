@@ -168,9 +168,7 @@ $db->close();
                   FROM (`reservation` INNER JOIN `showing` ON showing.complex=reservation.complex AND showing.day=reservation.day AND showing.starttime=reservation.starttime ) 
                   WHERE reservation.day >= CURDATE()
                   AND AccountNumber = '$account'";
-          $result = $db->query($sql);
-          var_dump($result);
-          echo "<option value='' disabled selected>Select a Reservation </option>";  
+          $result = $db->query($sql); 
           $rowString = "";       
           while($row = $result->fetch_assoc()) {
             $rowString = $row[$Movie].'|'.$row[$Day].'|'.$row[$Time].'|'.$row[$TheatreNum].'|'.$row[$complex].'|'.$row[$NumSeats];
