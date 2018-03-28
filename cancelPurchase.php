@@ -97,7 +97,17 @@ session_start();
                       AND NumTickets >= '$NumTix'";
                 if ($db->query($q)) 
                 {
-                  echo "<p>Reservation was successfully updated.</p>";
+                  echo "<p>Your reservation was successfully updated.</p>";
+                } // end if
+                $q2 = "UPDATE showing
+                set NumSeats = NumSeats + '$NumTix'
+                WHERE Complex = '$complex'
+                AND Theatre = '$TheatreNum'
+                AND Day = '$Day'
+                AND StartTime = '$Time'";
+                if ($db->query($q2)) 
+                {
+                  echo "<p>The number of the available seats at this showing has successfully updated.</p>";
                 } // end if
               } // end while
            } // end if
@@ -105,6 +115,8 @@ session_start();
         ?>
   
 </div>
+</div>
+</section>
 
 <!--==========================
   Footer
