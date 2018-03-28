@@ -63,12 +63,11 @@ session_start();
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#intro">Home</a></li>
-          <li><a href="login.php">Movies</a></li>
-          <li class="menu-has-children"><a href="">My Account</a>
+          <li class="menu-active"><a href="login.php">Home</a></li>
+          <li class="menu-has-children"><a href="profile.php">My Account</a>
             <ul>
-              <li><a href="#">Profile</a></li>
-              <li><a href="#">My Movies</a></li>
+              <li><a href="profile.php">Profile</a></li>
+              <li><a href="userPurchases.php">Purchases</a></li>
             </ul>
           </li> 
           <?php 
