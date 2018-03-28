@@ -54,7 +54,7 @@ session_start();
       <h3 class="section-title">Cancellation</h3>
     </header>
     <p style='text-align:center'><a href='/login.php'>Return Home</a></p>
-    <div class="container">
+    <div class="container" style='text-align:center'>
         <?php
           include "dbLogin.php";
           $db = DBLogin();
@@ -79,10 +79,14 @@ session_start();
                   AND StartTime = '$Time'
                   AND NumTickets >= '$NumTix'";
            $result = $db->query($sql);
-           if ($result){
-              while ($row = $result->fetch_assoc()){
+           if (mysqli_num_rows($result)==0) {
+               echo "<p>Hey! You don't have that many tickets to refund!</p>";
+           }
+           if ($result)
+           {
+              while ($row = $result->fetch_assoc())
+              {
                 $TickUpdate = $row['NumTickets'] - $NumTix;
-                echo $TickUpdate;
                 $q = "UPDATE reservation
                       SET NumTickets = $TickUpdate
                       WHERE AccountNumber = '$account'
@@ -91,14 +95,12 @@ session_start();
                       AND Day = '$Day'
                       AND StartTime = '$Time'
                       AND NumTickets >= '$NumTix'";
-                if ($db->query($q)) {
+                if ($db->query($q)) 
+                {
                   echo "<p>Reservation was successfully updated.</p>";
-                }
-                }
-           }
-            else {
-            echo "Error: " . $q . "<br>" . $db->error;
-            }
+                } // end if
+              } // end while
+           } // end if
           $db->close();
         ?>
   
