@@ -26,7 +26,7 @@ CREATE TABLE theatre
 	ScreenSize  	CHAR(1) NOT NULL,
 	MaxSeats    	INTEGER NOT NULL,
 	PRIMARY KEY(TheatreNum,Complex),
-	FOREIGN KEY(Complex) REFERENCES complex(CName)
+	FOREIGN KEY(Complex) REFERENCES complex(CName) ON UPDATE CASCADE
 );
 
 CREATE TABLE supplier
@@ -50,7 +50,7 @@ CREATE TABLE movie
 	Production		VARCHAR(20) NOT NULL,
 	Rating			VARCHAR(5) NOT NULL,
 	PRIMARY KEY(Title),
-	FOREIGN KEY(Supplier) REFERENCES supplier(Name)
+	FOREIGN KEY(Supplier) REFERENCES supplier(Name) 
 );
 
 CREATE TABLE actors
@@ -81,8 +81,8 @@ CREATE TABLE showing
 	Movie  			VARCHAR(35) NOT NULL,
 	PRIMARY KEY(Complex,Theatre,StartTime,Day),
 	FOREIGN KEY(Movie) REFERENCES movie(Title),
-	FOREIGN KEY(Complex) REFERENCES complex(CName),
-	FOREIGN KEY(Theatre) REFERENCES theatre(TheatreNum)
+	FOREIGN KEY(Complex) REFERENCES complex(CName) ON UPDATE CASCADE,
+	FOREIGN KEY(Theatre) REFERENCES theatre(TheatreNum) ON UPDATE CASCADE
 );
 
 CREATE TABLE runs
@@ -93,7 +93,7 @@ CREATE TABLE runs
 	EndDate 		date NOT NULL,
 	PRIMARY KEY(Movie,Complex),
 	FOREIGN KEY(Movie) REFERENCES movie(Title),
-	FOREIGN KEY(Complex) REFERENCES complex(CName)
+	FOREIGN KEY(Complex) REFERENCES complex(CName) ON UPDATE CASCADE
 );
 
 CREATE TABLE customer
@@ -130,7 +130,7 @@ CREATE TABLE reservation
 	NumTickets		INTEGER	NOT NULL,
 	PRIMARY KEY(AccountNumber, Complex, Theatre, StartTime, Day),
 	FOREIGN KEY(AccountNumber) REFERENCES customer(AccountNumber),
-	FOREIGN KEY(Complex,Theatre,StartTime,Day) REFERENCES showing(Complex,Theatre,StartTime,Day)
+	FOREIGN KEY(Complex,Theatre,StartTime,Day) REFERENCES showing(Complex,Theatre,StartTime,Day) ON UPDATE CASCADE
 );
 
 # Insert Data
