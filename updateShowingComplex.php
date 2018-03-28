@@ -97,21 +97,16 @@ session_start();
 
       $updateTheatre = (int)$array[0];
       $updateComp = $array[1];
+      $updateTime = $_POST["addTime"];
+      $updateDay = $_POST["addDay"];
       $Day = $array[2];
       $Time = $array[3];
       $TheatreNum = (int)$array[4];
       $complex = $array[5];
       $NumSeats = (int)$array[6];
 
-      echo $updateTheatre;
-      echo $updateComp;
-      echo $Day;
-      echo $Time;
-      echo $TheatreNum;
-      echo $complex;
-      echo $NumSeats;
-
       // Store users with reservations in an array
+      $flag = FALSE; 
       $q = "SELECT AccountNumber, NumTickets
               FROM reservation 
               WHERE Day = '$Day'
@@ -122,11 +117,12 @@ session_start();
       while ($row = $resultq -> fetch_assoc()){
         $accounts[] = $row['AccountNumber'];
         $tics[] = $row['NumTickets'];
+        $flag = TRUE;
       }
 
       /*Update Showing*/
       $sql1 = "UPDATE showing
-              SET Complex = '$updateComp', Theatre = '$updateTheatre'
+              SET Complex = '$updateComp', Theatre = '$updateTheatre', Day = '$updateDay', StartTime = '$updateTime'
               WHERE Day = '$Day'
               AND StartTime = '$Time'
               AND Complex = '$complex'
@@ -140,9 +136,7 @@ session_start();
               AND Theatre = '$TheatreNum'";
 
 
-      if ($db->query($sql2) == TRUE) {
-        echo "<p>Reservations deleted</p>";
-      }
+      if ($db->query($sql2) == TRUE) {}
       else {
         echo "Error: " . $sql2 . "<br>" . $db->error;
       }
@@ -152,17 +146,19 @@ session_start();
       else {
         echo "Error: " . $sql1 . "<br>" . $db->error;
       }
-
+      if ($flag)
+      {
       for ($x = 0; $x < sizeof($accounts); $x++) {
         $q2 = "INSERT INTO reservation (AccountNumber, Complex, Theatre, StartTime, Day, NumTickets)
-               VALUES ($accounts[$x], '$updateComp', $updateTheatre, '$Time', '$Day', $tics[$x])";
+               VALUES ($accounts[$x], '$updateComp', $updateTheatre, '$updateTime', '$updateDay', $tics[$x])";
         if ($db->query($q2) == TRUE){
           echo "<p>Reservation successfully restored!</p>";
         }
         else {
           echo "Error: " . $q2 . "<br>" . $db->error;
         }
-      }
+      }// end for loop
+      }//end if flag
       
       $db->close();
       ?>
