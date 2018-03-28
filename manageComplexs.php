@@ -149,6 +149,17 @@ session_start();
     $db -> close();
 	?>
 	
+
+  <!-- Add a new Theatre -->
+
+  <form action = "addNewComplex.php" method=" post">
+    <input type="text" name="name">
+    <input type="text" name="street">
+    <input type="text" name="city">
+    <input type="number" name="phone">
+    <input type="text" name="postal">
+    <input type="submit" name="submit">
+  </form>
 	
   <!--==========================
     Footer

@@ -132,6 +132,19 @@ session_start();
     $db -> close();
 	?>
 	
+<!-- Add a new theatre -->
+  <form action="addNewTheatre.php" method="post">
+   <p> Screen Size</p>
+    <select name="size"  required>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+    </select>
+    <br>
+     <input type="Number" name="number" placeholder="Number" required>
+    <input type="number" name="Seats" placeholder="Seats" required>
+    <input type="submit" value="Add New Theatre">
+  </form>
 	
   <!--==========================
     Footer
