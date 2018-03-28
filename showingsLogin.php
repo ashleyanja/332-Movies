@@ -95,11 +95,11 @@ $numRows = $result->num_rows;
     while($row = $result->fetch_assoc()) {
       echo "<tbody>";
       echo "<tr>";
-      echo "<td>" . $row["movie"] . "</td>";
+      echo "<td>" . $row["Movie"] . "</td>";
       echo "<td>" . date('M jS, Y', strtotime($row['day'])) . "</td>";
-      echo "<td>" . $row["starttime"] . "</td>";
-      echo "<td>" . $row["numseats"] . "</td>";
-      echo "<td>" . $row["theatre"] . "</td>";
+      echo "<td>" . $row["StartTime"] . "</td>";
+      echo "<td>" . $row["NumSeats"] . "</td>";
+      echo "<td>" . $row["Theatre"] . "</td>";
       echo "</tr>";
       echo "</tbody>";
       }
@@ -131,12 +131,12 @@ Purchase Tickets</button>";
         <?php
           $sql = "SELECT * FROM showing WHERE complex = '$theatre' AND `Day` >= CURDATE()";
           $result = $db->query($sql);
-          $Movie = "movie";
-          $Day = "day";
-          $Time = "starttime";
-          $TheatreNum = "theatre";
-          $complex = "complex";
-          $NumSeats = "numseats";
+          $Movie = "Movie";
+          $Day = "Day";
+          $Time = "StartTime";
+          $TheatreNum = "Theatre";
+          $complex = "Complex";
+          $NumSeats = "Numseats";
           echo "<option value='' disabled selected>Select a Showing</option>";  
           $rowString = "";       
           while($row = $result->fetch_assoc()) {
