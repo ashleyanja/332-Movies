@@ -162,7 +162,7 @@ else
               <div class="carousel-content">
                 <h2>MOVIES MOVIES MOVIES</h2>
                 <p> Find the BEST movies here</p>
-                <a href="#login" class="btn-get-started scrollto">View Account</a>
+                <a href="profile.php" class="btn-get-started scrollto">View Account</a>
               </div>
             </div>
           </div>
@@ -242,11 +242,14 @@ $sql = "SELECT title, runtime, plot, production, rating from movie";
 $result = $db->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
+    // add actors
 
     echo "<table class='t1'>
             <thead>
             <tr>
                 <th>Title</th>
+                <th>Actors</th>
+                <th>Directors</th>
                 <th>Runtime</th>
                 <th>Plot</th>
                 <th>Production</th>
@@ -271,10 +274,41 @@ $result = $db->query($sql);
             $score = $r['score'] / $r['n'];
           }
        }
+       $actors  = '';
+       $sql = "SELECT * from Actors where title = '{$row['title']}'";
+       //echo "$sql";
+      $res = $db->query($sql);
+       if ($res->num_rows > 0) 
+       {
+          while($r = $res->fetch_assoc())
+          {
+            $name = $r['Fname'] . " " . $r['Lname'] . ", ";
+            $actors = $actors . $name;
+          }  
+         
+       }
+       $dir = '';
+
+      $sql = "SELECT * from Directors where title = '{$row['title']}'";
+      $res = $db->query($sql);
+       if ($res->num_rows > 0) 
+       {
+          while($r = $res->fetch_assoc())
+          {
+            $name = $r['Fname'] . " " . $r['Lname'] . ", ";
+            $dir = $dir . $name;
+          }  
+         
+       }
+
+
+
 
       echo "<tbody>";
       echo "<tr>";
       echo "<td>" . $row["title"] . "</td>";
+       echo "<td>" . $actors . "</td>";
+        echo "<td>" . $dir . "</td>";
       echo "<td>" . $row["runtime"] . "</td>";
       echo "<td>" . $row["plot"] . "</td>";
       echo "<td>" . $row["production"] . "</td>";

@@ -156,6 +156,8 @@ $result = $db->query($sql);
             <thead>
             <tr>
                 <th>Title</th>
+                <th>Actors</th>
+                <th>Directors</th>
                 <th>Runtime</th>
                 <th>Plot</th>
                 <th>Production</th>
@@ -180,10 +182,41 @@ $result = $db->query($sql);
             $score = $r['score'] / $r['n'];
           }
        }
+       $actors  = '';
+       $sql = "SELECT * from Actors where title = '{$row['title']}'";
+       //echo "$sql";
+      $res = $db->query($sql);
+       if ($res->num_rows > 0) 
+       {
+          while($r = $res->fetch_assoc())
+          {
+            $name = $r['Fname'] . " " . $r['Lname'] . ", ";
+            $actors = $actors . $name;
+          }  
+         
+       }
+       $dir = '';
+
+      $sql = "SELECT * from Directors where title = '{$row['title']}'";
+      $res = $db->query($sql);
+       if ($res->num_rows > 0) 
+       {
+          while($r = $res->fetch_assoc())
+          {
+            $name = $r['Fname'] . " " . $r['Lname'] . ", ";
+            $dir = $dir . $name;
+          }  
+         
+       }
+
+
+
 
       echo "<tbody>";
       echo "<tr>";
       echo "<td>" . $row["title"] . "</td>";
+       echo "<td>" . $actors . "</td>";
+        echo "<td>" . $dir . "</td>";
       echo "<td>" . $row["runtime"] . "</td>";
       echo "<td>" . $row["plot"] . "</td>";
       echo "<td>" . $row["production"] . "</td>";

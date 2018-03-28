@@ -127,38 +127,3 @@ if(!(array_key_exists('login',$_SESSION) && $_SESSION['login']))
   </form>
   "
 ?>
-
-  <!--==========================
-    Header
-  ============================-->
-  <header id="header">
-    <div class="container-fluid">
-
-      <div id="logo" class="pull-left">
-        <h1><a href="#intro" class="scrollto">Movies For You</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
-      </div>
-
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li class="menu-active"><a href="#intro">Home</a></li>
-          <li><a href="#movie">Movies</a></li>
-          <li class="menu-has-children"><a href="">My Account</a>
-            <ul>
-              <li><a href="profile.php">Profile</a></li>
-              <li><a href="#">My Movies</a></li>
-            </ul>
-          </li> 
-          <?php 
-            if($admin)
-            {
-              echo  "<li> <a href='admin.php'>Admin</a></li>";
-            }
-
-            ?>
-            <li> <a href='index.php'>Logout</a></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
-    </div>
-  </header><!-- #header -->

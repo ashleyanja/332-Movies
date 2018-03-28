@@ -77,7 +77,7 @@ if ($db->connect_error) {
 } 
 
 /*Check that there is enough seats available*/
-$qSeats = "SELECT * FROM showing WHERE Complex = '$complex' AND Movie = '$Movie' AND Day = '$Day' AND StartTime = '$Time'";
+$qSeats = "SELECT * FROM showing WHERE complex = '$complex' AND movie = '$Movie' AND day = '$Day'";
 $result = $db->query($qSeats);
 $seats = "NumSeats";
 
@@ -91,7 +91,7 @@ while($row = $result->fetch_assoc()) {
 			if ($db->query($sql) == TRUE){
 				$sql2 = "UPDATE showing 
 						SET numseats='$SeatsLeft'
-						WHERE Complex = '$complex' AND Movie = '$Movie' AND Day = '$Day' AND StartTime = '$Time'";
+						WHERE complex = '$complex' AND movie = '$Movie' AND day = '$Day'";
 				if ($db->query($sql2) == TRUE) {
           echo "<p style='text-align:center;'>Tickets were added to your reservation!</p>";
 				}
